@@ -1,0 +1,49 @@
+[33mcommit cfcd1078e59d131a4ea0f126517730b126af1d99[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Mon May 14 15:00:29 2018 -0700
+
+    Parallel display routine continued.
+
+[33mcommit b8a9cd54e4600975fff30ff86955a751091e6b22[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Mon May 14 08:23:42 2018 -0700
+
+    Parallel display routine started.
+
+[33mcommit 22d2eefb3b5d65905756e57b6a19ba7cb9ccfe5a[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Mon May 14 08:04:18 2018 -0700
+
+    Revert "Tag test"
+    
+    This reverts commit b1a7c9c00d3ee651316a2565593bc81e4ccf9d29.
+
+[33mcommit b1a7c9c00d3ee651316a2565593bc81e4ccf9d29[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Mon May 14 07:59:05 2018 -0700
+
+    Tag test
+
+[33mcommit 87b7b74d9220acd1544ba9a2de4e03de4c728779[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Fri May 11 09:31:45 2018 -0700
+
+    bug fix
+
+[33mcommit f16dafccec63de7e37ea07bd8aee79dba75b39a6[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Thu May 10 16:33:08 2018 -0700
+
+    Fixed non_RESET power-up condition glitch
+
+[33mcommit a22827b9d25a37214b5d9769592151dd94e1810f[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Thu May 10 15:10:57 2018 -0700
+
+    Fixed non_RESET power-up condition glitch
+
+[33mcommit 6a19a4488646094bf5d85bd82adc112c01002c59[m
+Author: James <jamesvlasblom@gmail.com>
+Date:   Thu May 10 11:49:46 2018 -0700
+
+    Initial Commit
