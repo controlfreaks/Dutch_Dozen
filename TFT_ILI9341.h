@@ -42,6 +42,16 @@
 #define SCLK _LATG6          // Clock for OLED - Serial Mode.
 #define MOSI _LATG8          // Master out, serial in for OLED - Serial Mode.
 
+
+// #define statements for parallel connection to the display.
+// Note: D0 - D7 into the display corresponds to D1-D8 of the CPU respectively.
+
+#define Para_CS _LATD9        // Chip select for OLED - Parallel mode. 
+#define Para_DC _LATD10       // Data / Command for OLED (LATG0 for pictail) - Parallel Mode.
+#define Para_WR _LATD11       // Write strobe - Parallel Mode.
+#define Para_RD _LATD12       // Read strobe - Parallel Mode.
+#define Para_RST _LATD13      // Reset for OLED - Parallel Mode.
+
 #define ILI9341_TFTWIDTH  320
 #define ILI9341_TFTHEIGHT 240
 
