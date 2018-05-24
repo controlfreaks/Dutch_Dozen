@@ -190,21 +190,27 @@ int main(int argc, char** argv) {
     // *** EEPROM Initialization ***
     // *****************************
     // Note: EWEN() is called from within EEEPROM_Setup().
-    EEPROM_Setup(); // Initialize the EEPROM memory variables.
+    //***EEPROM MOD, remove between bookends***
+    //EEPROM_Setup(); // Initialize the EEPROM memory variables.
+    //***EEPROM MOD, remove between bookends***
+
 
     // **********************************
     // *** Initial EEPROM programming ***
     // **********************************
     // Fill EEPROM with initial settings, (running display, delay = 200ms)
     // This is only done once, on the 1st programming of the board.
-    while ((E_Read(EInit_FLG)) != 0x1235) {
-        E_Write(EDelay_Count, ARRAY_MID); // Initialize memory location. (24)
-        E_Write(EDelay_Place, 85); //Initialize memory location. (3 digits)
-        E_Write(EMenu, 40); //Initialize memory location. (running display)
-        E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); //Initialize memory location.
-        E_Write(EChannel, KLUNK_CH); // Initialize to reset condition.
-        E_Write(EInit_FLG, 0x1235); // set flag so above while() only executes once.
-    }
+
+    //***EEPROM MOD, remove between bookends***
+    // while ((E_Read(EInit_FLG)) != 0x1235) {
+    // E_Write(EDelay_Count, ARRAY_MID); // Initialize memory location. (24)
+    // E_Write(EDelay_Place, 85); //Initialize memory location. (3 digits)
+    // E_Write(EMenu, 40); //Initialize memory location. (running display)
+    // E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); //Initialize memory location.
+    // E_Write(EChannel, KLUNK_CH); // Initialize to reset condition.
+    // E_Write(EInit_FLG, 0x1235); // set flag so above while() only executes once.
+    //}
+    //***EEPROM MOD, remove between bookends***
 
     // *****************************
     // *** Initialize Interrupts ***
@@ -269,18 +275,24 @@ int main(int argc, char** argv) {
     // ***************************************
     // *** Mode Delay **** MEMORY RECOVERY ***
     // ***************************************
+    //***EEPROM MOD, remove between bookends***
 
-    Array_Count = E_Read(EDelay_Count);
-    place = E_Read(EDelay_Place);
-    THREE_DIGIT_FLG = E_Read(EDelay_3D_FLG);
+    //Array_Count = E_Read(EDelay_Count);
+    //place = E_Read(EDelay_Place);
+    //THREE_DIGIT_FLG = E_Read(EDelay_3D_FLG);
+    //***EEPROM MOD, remove between bookends***
 
     // ************************************
     // *** Channel **** MEMORY RECOVERY ***
     // ************************************
     // SRCLK controls the output buffers of '245.
     // SR_LATCH shifts the shift register.
-    Channel_count = E_Read(EChannel); // Retrieve stored channel value
-    Count = (Channel_count);
+    //***EEPROM MOD, remove between bookends***
+
+    //Channel_count = E_Read(EChannel); // Retrieve stored channel value
+    //Count = (Channel_count);
+    //***EEPROM MOD, remove between bookends***
+
     // Test to see if channel advancing is necessary.
     if (Channel_count != KLUNK_CH) { // Non reset condition.
         FIRE_FIRST_FLG = 1;
@@ -317,7 +329,10 @@ int main(int argc, char** argv) {
     //  *** Single/Mode *** MEMORY RECOVERY ***
     // ****************************************
     // Make sure this is the last test before main.
-    SM_FLG = E_Read(EMode);
+    //***EEPROM MOD, remove between bookends***
+    //SM_FLG = E_Read(EMode);
+    //***EEPROM MOD, remove between bookends***
+
     if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
         Multi();
     }
