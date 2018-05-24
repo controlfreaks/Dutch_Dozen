@@ -92,10 +92,10 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x59c           0x86a  (2154)
 .const                       0x79c              0x763e          0xb15d  (45405)
-.text                       0x7dda              0x2060          0x3090  (12432)
-.dinit                      0x9e3a                0x9a            0xe7  (231)
+.text                       0x7dda              0x1fca          0x2faf  (12207)
+.dinit                      0x9da4                0x9a            0xe7  (231)
 
-                 Total program memory used (bytes):         0xeb3e  (60222) 45%
+                 Total program memory used (bytes):         0xea5d  (59997) 45%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -267,33 +267,33 @@ External Symbols in Program Memory (by address):
                   0x008a9e                  _Arm
                   0x008b98                  _Clear_SR
                   0x008bae                  _Encoder_Switch
-                  0x008cac                  _Firing
-                  0x008cda                  _Menu
-                  0x0092aa                  _Multi
-                  0x0092d0                  _Parse_PortB
-                  0x009320                  _Reset
-                  0x00934a                  _Rotate
-                  0x00938e                  _Rotory_Encoder
-                  0x009596                  _Shift
-                  0x0095b4                  _Single
-                  0x0095d2                  _DecimalInsert
-                  0x0095dc                  _Version
-                  0x009698                  _TimerInit
-                  0x0096d0                  _SPIInit
-                  0x009708                  _main
-                  0x009956                  _Arm_Alert
-                  0x009b6e                  _Fire_Alert
-                  0x009d56                  _Latch_Test
-                  0x009d5c                  _SplashDisplay
+                  0x008c76                  _Firing
+                  0x008ca4                  _Menu
+                  0x009274                  _Multi
+                  0x00928e                  _Parse_PortB
+                  0x0092de                  _Reset
+                  0x009302                  _Rotate
+                  0x009340                  _Rotory_Encoder
+                  0x00950c                  _Shift
+                  0x00952a                  _Single
+                  0x00953c                  _DecimalInsert
+                  0x009546                  _Version
+                  0x009602                  _TimerInit
+                  0x00963a                  _SPIInit
+                  0x009672                  _main
+                  0x0098c0                  _Arm_Alert
+                  0x009ad8                  _Fire_Alert
+                  0x009cc0                  _Latch_Test
+                  0x009cc6                  _SplashDisplay
 
 External Symbols in Program Memory (by name):
 
                   0x007dda                  _ADCInit
                   0x008a9e                  _Arm
-                  0x009956                  _Arm_Alert
+                  0x0098c0                  _Arm_Alert
                   0x00885c                  _CharWrite_XY_ILI9341_16x25
                   0x008b98                  _Clear_SR
-                  0x0095d2                  _DecimalInsert
+                  0x00953c                  _DecimalInsert
                   0x007e54                  _DelayMs
                   0x007ea6                  _DelayUs
                   0x0085cc                  _DrawPixel_ILI9341
@@ -308,26 +308,26 @@ External Symbols in Program Memory (by name):
                   0x008bae                  _Encoder_Switch
                   0x008682                  _FillRec_ILI9341
                   0x0087ba                  _FillScreen_ILI9341
-                  0x009b6e                  _Fire_Alert
-                  0x008cac                  _Firing
+                  0x009ad8                  _Fire_Alert
+                  0x008c76                  _Firing
                   0x00844e                  _Initialize_TFT_ILI9341
                   0x008394                  _IntInit
-                  0x009d56                  _Latch_Test
+                  0x009cc0                  _Latch_Test
                   0x0089a0                  _LineWrite_XY_ILI9341_16x25
-                  0x008cda                  _Menu
-                  0x0092aa                  _Multi
-                  0x0092d0                  _Parse_PortB
+                  0x008ca4                  _Menu
+                  0x009274                  _Multi
+                  0x00928e                  _Parse_PortB
                   0x008198                  _PortInit
-                  0x009320                  _Reset
-                  0x00934a                  _Rotate
-                  0x00938e                  _Rotory_Encoder
-                  0x0096d0                  _SPIInit
+                  0x0092de                  _Reset
+                  0x009302                  _Rotate
+                  0x009340                  _Rotory_Encoder
+                  0x00963a                  _SPIInit
                   0x0087d6                  _SetAddrWindow_ILI9341
-                  0x009596                  _Shift
-                  0x0095b4                  _Single
-                  0x009d5c                  _SplashDisplay
-                  0x009698                  _TimerInit
-                  0x0095dc                  _Version
+                  0x00950c                  _Shift
+                  0x00952a                  _Single
+                  0x009cc6                  _SplashDisplay
+                  0x009602                  _TimerInit
+                  0x009546                  _Version
                   0x008a2e                  _WriteCommand_ILI9341
                   0x008a66                  _WriteData_ILI9341
                   0x0002c8                  __ADC1Interrupt
@@ -364,7 +364,7 @@ External Symbols in Program Memory (by name):
                   0x000200                  __resetPRI
                   0x000702                  _atoi
                   0x000774                  _itoa
-                  0x009708                  _main
+                  0x009672                  _main
                   0x000790                  _strlen
                   0x000740                  _utoa
 
@@ -496,26 +496,26 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x5995
+.debug_info       0x000000       0x5964
  *(.debug_info)
- .debug_info      0x000000       0x5995 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_info      0x000000       0x5964 build/default/production/Dutch_Dozen_V5.0.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x2ac
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x2ac build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_line       0x000000        0x911
+.debug_line       0x000000        0x8fe
  *(.debug_line)
- .debug_line      0x000000        0x911 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_line      0x000000        0x8fe build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_frame      0x000000        0x7c8
+.debug_frame      0x000000        0x7ac
  *(.debug_frame)
- .debug_frame     0x000000        0x7c8 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_frame     0x000000        0x7ac build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_str        0x000000        0x335
+.debug_str        0x000000        0x304
  *(.debug_str)
- .debug_str       0x000000        0x335 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_str       0x000000        0x304 build/default/production/Dutch_Dozen_V5.0.o
 
 .debug_loc
  *(.debug_loc)
@@ -1259,8 +1259,8 @@ __c30_signature
 .const              0x879c       0x763e load address 0x00079c  
  .const             0x879c       0x763e build/default/production/Dutch_Dozen_V5.0.o
 
-.text             0x007dda       0x2060
- .text            0x007dda       0x2060 build/default/production/Dutch_Dozen_V5.0.o
+.text             0x007dda       0x1fca
+ .text            0x007dda       0x1fca build/default/production/Dutch_Dozen_V5.0.o
                   0x007dda                  _ADCInit
                   0x007e54                  _DelayMs
                   0x007ea6                  _DelayUs
@@ -1286,24 +1286,24 @@ __c30_signature
                   0x008a9e                  _Arm
                   0x008b98                  _Clear_SR
                   0x008bae                  _Encoder_Switch
-                  0x008cac                  _Firing
-                  0x008cda                  _Menu
-                  0x0092aa                  _Multi
-                  0x0092d0                  _Parse_PortB
-                  0x009320                  _Reset
-                  0x00934a                  _Rotate
-                  0x00938e                  _Rotory_Encoder
-                  0x009596                  _Shift
-                  0x0095b4                  _Single
-                  0x0095d2                  _DecimalInsert
-                  0x0095dc                  _Version
-                  0x009698                  _TimerInit
-                  0x0096d0                  _SPIInit
-                  0x009708                  _main
-                  0x009956                  _Arm_Alert
-                  0x009b6e                  _Fire_Alert
-                  0x009d56                  _Latch_Test
-                  0x009d5c                  _SplashDisplay
+                  0x008c76                  _Firing
+                  0x008ca4                  _Menu
+                  0x009274                  _Multi
+                  0x00928e                  _Parse_PortB
+                  0x0092de                  _Reset
+                  0x009302                  _Rotate
+                  0x009340                  _Rotory_Encoder
+                  0x00950c                  _Shift
+                  0x00952a                  _Single
+                  0x00953c                  _DecimalInsert
+                  0x009546                  _Version
+                  0x009602                  _TimerInit
+                  0x00963a                  _SPIInit
+                  0x009672                  _main
+                  0x0098c0                  _Arm_Alert
+                  0x009ad8                  _Fire_Alert
+                  0x009cc0                  _Latch_Test
+                  0x009cc6                  _SplashDisplay
 
-.dinit            0x009e3a         0x9a
- .dinit           0x009e3a         0x9a data_init
+.dinit            0x009da4         0x9a
+ .dinit           0x009da4         0x9a data_init

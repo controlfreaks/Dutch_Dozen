@@ -305,7 +305,10 @@ void Encoder_Switch(void) {
     // Change from M10 to M11.
     if (MenuNo == 10) {
         MenuNo = 11;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+
         DoDown = 0;
         DoForward = 1;
         DoUp = 0;
@@ -314,7 +317,10 @@ void Encoder_Switch(void) {
         // This puts klunker into SINGLE mode.
     else if (MenuNo == 11) {
         MenuNo = 10;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+
         DoForward = 0;
         DoDown = 0;
         DoUp = 0;
@@ -325,7 +331,10 @@ void Encoder_Switch(void) {
         // This puts klunker into MULTI mode.
     else if (MenuNo == 12) {
         MenuNo = 10;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+       // E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+
         DoUp = 0;
         DoBack = 1;
         Multi();
@@ -334,7 +343,10 @@ void Encoder_Switch(void) {
         // This action also turns GALV function off.
     else if (MenuNo == 21) {
         MenuNo = 20;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+
         DoForward = 0;
         DoDown = 0;
         DoUp = 0;
@@ -350,12 +362,18 @@ void Encoder_Switch(void) {
         if (ARM_FLG == 1) {
             ARM_GLV_FLG = 1;
             MenuNo = 70; // Menu 70 is the ARM/GALV conflict message.
-            E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+                //***EEPROM MOD, remove between bookends***
+           // E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+                //***EEPROM MOD, remove between bookends***
+
             Menu();
         }
         Reset(); // reset before entering GALV mode.
         MenuNo = 22; // ** For full function uncomment Menu() and Change
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+       // E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+
         // MenuNo = 21 instead of MenuNo = 22.
 
         GALV_FLG = 1; // Set GALV flag.
@@ -363,7 +381,10 @@ void Encoder_Switch(void) {
     }// Change from M20 to M21.
     else if (MenuNo == 20) {
         MenuNo = 21;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //***EEPROM MOD, remove between bookends***
+
         DoDown = 0;
         DoUp = 0;
         DoForward = 1;
@@ -371,7 +392,9 @@ void Encoder_Switch(void) {
     }// Change from M30 to Running Display
     else if (MenuNo == 30) {
         MenuNo = 40;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+                    //***EEPROM MOD, remove between bookends***
+       // E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+                    //***EEPROM MOD, remove between bookends***
         VER_FLG = 0;
         MENU_FLG = 0; // leaving MENU mode (OK to fire).
         DoForward = 1; // Do not skip ClearOLED().
@@ -381,7 +404,9 @@ void Encoder_Switch(void) {
     else if (MenuNo == 40) {
         MENU_FLG = 1; // entering MENU mode (Not OK to fire).
         MenuNo = 10; // Enter menu in M10 screen.
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+                    //***EEPROM MOD, remove between bookends***
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+                    //***EEPROM MOD, remove between bookends***
         // Do not skip ClearOLED().
         //IEC0bits.AD1IE = 0; // disable A/D Conversion Done interrupt
         Menu();
@@ -552,7 +577,9 @@ void Multi(void) {
     // New Multi
     PR1 = Array_DelayHex[Array_Count]; // load period register with interrupt match value
     SM_FLG = 0; // Set SM flag to multi mode
-    E_Write(EMode, SM_FLG); // Save current sm mode value.
+                //***EEPROM MOD, remove between bookends***
+    //E_Write(EMode, SM_FLG); // Save current sm mode value.
+                //***EEPROM MOD, remove between bookends***
     SM_LED = 1; // Turn SM LED on.
     _TON = 1; // Turn Timer 1 on. Memory recovery also test and turns on
     CLOCK_FLG = 1; // Set CLOCK flag.
@@ -595,7 +622,9 @@ void Reset(void) {
 
     SendReg = 0x8000; // Register which is outputted to the Shift Reg.
     Count = KLUNK_CH; // Register which holds one more than the 
-    E_Write(EChannel, Count); // save channel position.
+                //***EEPROM MOD, remove between bookends***
+    //E_Write(EChannel, Count); // save channel position.
+                //***EEPROM MOD, remove between bookends***
     // number of hits channels for the klunker.
     SERIAL = 0;
     FIRE_FIRST_FLG = 0; // Clear FIRE_FIRST flag.
@@ -628,7 +657,9 @@ void Rotate(void) {
     Nop();
     FIRE_FIRST_FLG = 0; // Clear FIRE_FIRST flag.
     Count--;
-    E_Write(EChannel, Count); // save channel position.
+                //***EEPROM MOD, remove between bookends***
+   // E_Write(EChannel, Count); // save channel position.
+                //***EEPROM MOD, remove between bookends***
     if (Count <= 0) // check if full sequence achieved, if yes, reset
         Reset();
 
@@ -649,19 +680,27 @@ void Rotory_Encoder(void) {
     if ((MenuNo == 40) && (SM_FLG == 0)) {// Done with menu, goto running display.
         if (Encoder_Dir == CW) { // *** INCREASING DELAY (CCW)***
             Array_Count++; // Increase the count of both arrays.
-            E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                        //***EEPROM MOD, remove between bookends***
+           // E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                        //***EEPROM MOD, remove between bookends***
 
             if (Array_Count > ARRAY_MAX) { // Check if hit upper limit of array.
                 Array_Count = ARRAY_MAX; // Oops, went above, hold at upper limit.
-                E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
+                //E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
             }
             // if count > 90 go into 3 digit mode, no right justify, 
             // three digit flag = 3.
             if (Array_DelayHex[Array_Count] > 0x57E) { // f count > 90. *** CHANGED FEB15/18 ***
                 THREE_DIGIT_FLG = 1;
-                E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); // Save place to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
+               // E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); // Save place to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
                 place = 85;
-                E_Write(EDelay_Place, place); // Save place to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
+               // E_Write(EDelay_Place, place); // Save place to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
             }
             LineWrite_XY_ILI9341_16x25(Array_DelayMs[Array_Count], place, Line2, ILI9341_WHITE, ILI9341_BLACK);
 
@@ -671,21 +710,29 @@ void Rotory_Encoder(void) {
                 //  Effectively clears the digit no longer being printed. When 
                 // working place one character at the proper location.
                 place = 101; // Right justification
-                E_Write(EDelay_Place, place); // Save place to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
+               // E_Write(EDelay_Place, place); // Save place to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
                 // Places a blank at the MSB.
                 LineWrite_XY_ILI9341_16x25(" ", 85, Line2, ILI9341_BLACK, ILI9341_BLACK);
                 THREE_DIGIT_FLG = 0; // signals 2 digits
-                E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); // Save THREE_DIGIT_FLG to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
+               //E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); // Save THREE_DIGIT_FLG to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
             }
 
             Array_Count--;
-            E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                        //***EEPROM MOD, remove between bookends***
+           // E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                        //***EEPROM MOD, remove between bookends***
             if (TMR1 >= Array_DelayHex[Array_Count]) // Check if TMR is above PRx, if
                 TMR1 = Array_DelayHex[Array_Count - 2]; // so, stick TMR below PRx.; // so, stick TMR below PRx.
 
             if (Array_Count < 1) { // Check for lower array limit.
                 Array_Count = 1; // Oops, went below, hold at lower limit.
-                E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
+               // E_Write(EDelay_Count, Array_Count); // Save Array_Count to EEPROM.
+                            //***EEPROM MOD, remove between bookends***
             }
             // Only clear the delay once when going from 100 - 90. Stops blanking.
             // When THREE_DIGIT_FLG = 1, count is 3 digits.
@@ -784,7 +831,9 @@ void Shift(void) {
 void Single(void) {
 
     SM_FLG = 1; // Put into SINGLE mode.
-    E_Write(EMode, SM_FLG); // Save current sm mode value.
+                //***EEPROM MOD, remove between bookends***
+   // E_Write(EMode, SM_FLG); // Save current sm mode value.
+                //***EEPROM MOD, remove between bookends***
     _TON = 0; // Timer1 off.
     SM_LED = 0; // Turn SM LED off.
     TMR1 = 0; // Clear Timer 1 register.
