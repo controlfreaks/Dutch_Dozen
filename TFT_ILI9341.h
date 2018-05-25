@@ -163,7 +163,9 @@ void LineWrite_XY_ILI9341_16x25(char *digit, long int x, long int line, long int
 void SetAddrWindow_ILI9341(long int X_Start, long int Y_Start, long int X_End,
         long int Y_End);
 void WriteCommand_ILI9341(unsigned char Command);
+void Para_WriteCommand_ILI9341(unsigned char Command);
 void WriteData_ILI9341(unsigned char Data);
+void Para_WriteData_ILI9341(unsigned char Data);
 //void WriteGRAM(int Colour);
 
 
@@ -303,7 +305,7 @@ void DrawPixel_ILI9341(long int x, long int y, long int colour) {
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
     DC = DATA; // Write Command, leave low
     CS = 0; // Activate ~CS   
@@ -318,8 +320,6 @@ void DrawPixel_ILI9341(long int x, long int y, long int colour) {
     IEC3bits.INT4IE = 1; // enable INT4 ISR
     IEC0bits.INT0IE = 1; // enable INT0 ISR
 }
-
-
 
 void FillRec_ILI9341(long int x, long int y, long int w, long int h, long int colour) {
 
@@ -340,7 +340,7 @@ void FillRec_ILI9341(long int x, long int y, long int w, long int h, long int co
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
     DC = DATA; // Write Command, leave low
     CS = 0; // Activate ~CS   
@@ -380,9 +380,6 @@ void SetAddrWindow_ILI9341(long int X_Start, long int Y_Start, long int X_End,
 
     WriteCommand_ILI9341(ILI9341_RAMWR); // write to RAM
 }
-
-
-
 
 /*
 void CharWrite_XY_ILI9341(int digit, long int x_start, long int y_start,
@@ -488,18 +485,13 @@ void LineWrite_XY_ILI9341_16x25(char *digit, long int x, long int line, long int
     }
 }
 
-
-
-
-
 void WriteCommand_ILI9341(unsigned char Command) {
     IEC1bits.CNIE = 0; // disable CN ISR
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
-    
     DC = COMMAND; // Write Command, leave low
     //Original delay of 12 NOPs approx 1.5uS.
     CS = 0; // Activate ~CS
@@ -516,19 +508,46 @@ void WriteCommand_ILI9341(unsigned char Command) {
     IEC0bits.INT0IE = 1; // enable INT0 ISR
 }
 
+void Para_WriteCommand_ILI9341(unsigned char Command) {
+    IEC1bits.CNIE = 0; // disable CN ISR
+    IEC3bits.INT3IE = 0; // disable INT3 ISR
+    IEC3bits.INT4IE = 0; // disable INT4 ISR
+    IEC0bits.INT0IE = 0; // disable INT0 ISR
+    Nop(); // Added for interrupt disable timing.
+
+    Para_DC = COMMAND; // Write Command, leave low
+    //Original delay of 12 NOPs approx 1.5uS.
+    Para_CS = 0; // Activate ~CS
+    //Original delay of 15 NOPs approx 1.9uS.
+    //SPI2BUF = Command;
+    LATD = Command; // Load data into PORTD.
+    LATD = LATD << 1; // Shift by 1, using pins D1-D8
+    LATD = LATD & 0x01FE; // Mask off the unwanted bits;
+    //Original delay of 23 NOPs approx 2.8uS.
+    Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
+    Nop(), Nop();
+    Para_CS = 1; // deactivate ~CS.
+
+    IEC1bits.CNIE = 1; // enable CN ISR
+    IEC3bits.INT3IE = 1; // enable INT3 ISR
+    IEC3bits.INT4IE = 1; // enable INT4 ISR
+    IEC0bits.INT0IE = 1; // enable INT0 ISR
+
+}
+
 void WriteData_ILI9341(unsigned char Data) {
     IEC1bits.CNIE = 0; // disable CN ISR
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
-    
     DC = DATA; // Write Command, leave low
     //Original delay of 12 NOPs approx 1.5uS.
     CS = 0; // Activate ~CS
     //Original delay of 15 NOPs approx 1.9uS.
     SPI2BUF = Data;
+
     //Original delay of 23 NOPs approx 2.8uS.
     Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
     Nop(), Nop();
@@ -539,6 +558,34 @@ void WriteData_ILI9341(unsigned char Data) {
     IEC3bits.INT4IE = 1; // enable INT4 ISR
     IEC0bits.INT0IE = 1; // enable INT0 ISR
 }
+
+void Para_WriteData_ILI9341(unsigned char Data) {
+    IEC1bits.CNIE = 0; // disable CN ISR
+    IEC3bits.INT3IE = 0; // disable INT3 ISR
+    IEC3bits.INT4IE = 0; // disable INT4 ISR
+    IEC0bits.INT0IE = 0; // disable INT0 ISR
+    Nop(); // Added for interrupt disable timing.
+
+
+    Para_DC = DATA; // Write Command, leave low
+    //Original delay of 12 NOPs approx 1.5uS.
+    Para_CS = 0; // Activate ~CS
+    //Original delay of 15 NOPs approx 1.9uS.
+    //SPI2BUF = Data;
+    LATD = Data; // Load data into PORTD.
+    LATD = LATD << 1; // Shift by 1, using pins D1-D8
+    LATD = LATD & 0x01FE; // Mask off the unwanted bits;
+    //Original delay of 23 NOPs approx 2.8uS.
+    Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
+    Nop(), Nop();
+    Para_CS = 1; // deactivate ~CS.
+
+    IEC1bits.CNIE = 1; // enable CN ISR
+    IEC3bits.INT3IE = 1; // enable INT3 ISR
+    IEC3bits.INT4IE = 1; // enable INT4 ISR
+    IEC0bits.INT0IE = 1; // enable INT0 ISR
+}
+
 /*
 void WriteGRAM(int Colour) {
 
