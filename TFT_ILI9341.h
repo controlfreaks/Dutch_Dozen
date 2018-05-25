@@ -512,7 +512,7 @@ void Para_WriteCommand_ILI9341(unsigned char Command) {
     IEC1bits.CNIE = 0; // disable CN ISR
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
-    IEC0bits.INT0IE = 0; // disable INT0 ISR
+    IEC0bits.INT0IE = 0; // disable INT0 ISR 
     Nop(); // Added for interrupt disable timing.
 
     Para_DC = COMMAND; // Write Command, leave low

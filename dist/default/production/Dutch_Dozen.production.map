@@ -52,10 +52,6 @@ c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt
                               (__crt_start_mode_normal)
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(divsf3.eo)
                               build/default/production/Dutch_Dozen_V5.0.o (___divsf3)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(feqltle.eo)
-                              build/default/production/Dutch_Dozen_V5.0.o (___ltsf2)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fgtge.eo)
-                              build/default/production/Dutch_Dozen_V5.0.o (___gtsf2)
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
                               build/default/production/Dutch_Dozen_V5.0.o (_(float, int, long long, short, float, short, int))
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
@@ -70,8 +66,6 @@ c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.e
                               c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(divsf3.eo) (__fPropagateNaN)
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
                               build/default/production/Dutch_Dozen_V5.0.o (___mulsf3)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fcompare.eo)
-                              c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(feqltle.eo) (__fcompare)
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
                               c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatsisf.eo) (___floatdisf)
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
@@ -90,12 +84,12 @@ Program Memory  [Origin = 0x200, Length = 0x155fc]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x59c           0x86a  (2154)
-.const                       0x79c              0x763e          0xb15d  (45405)
-.text                       0x7dda              0x2056          0x3081  (12417)
-.dinit                      0x9e30                0x9a            0xe7  (231)
+.text                        0x200               0x55e           0x80d  (2061)
+.const                       0x75e              0x7608          0xb10c  (45324)
+.text                       0x7d66              0x1eb6          0x2e11  (11793)
+.dinit                      0x9c1c                0x9a            0xe7  (231)
 
-                 Total program memory used (bytes):         0xeb2f  (60207) 45%
+                 Total program memory used (bytes):         0xe811  (59409) 45%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -221,119 +215,113 @@ External Symbols in Program Memory (by address):
                   0x000450                  __T4Interrupt
                   0x000466                  __DefaultInterrupt
                   0x00046c                  ___divsf3
-                  0x0004f0                  ___eqsf2
-                  0x0004f0                  ___ltsf2
-                  0x0004f0                  ___lesf2
-                  0x0004f4                  ___gtsf2
-                  0x0004f4                  ___gesf2
-                  0x0004f8                  ___fixsfsi
-                  0x00053a                  ___floatsisf
-                  0x000540                  __fpack
-                  0x00058c                  __funpack
-                  0x0005b6                  __funpack2
-                  0x0005c6                  __fPropagateNaN
-                  0x0005d8                  __fbopExit
-                  0x0005e0                  __fbopReturnNaN
-                  0x0005e6                  ___mulsf3
-                  0x00064e                  __fcompare
-                  0x000684                  ___floatdisf
-                  0x0006a4                  ___floatundisf
-                  0x000702                  _atoi
-                  0x000740                  _utoa
-                  0x000774                  _itoa
-                  0x000790                  _strlen
-                  0x007dda                  _ADCInit
-                  0x007e54                  _DelayMs
-                  0x007ea6                  _DelayUs
-                  0x007ec8                  _EEPROM_Setup
-                  0x007eda                  _E_Read
-                  0x007fb8                  _E_EWEN
-                  0x008070                  _E_Erase
-                  0x008076                  _E_Write
-                  0x008184                  _E_Eral
-                  0x00818a                  _E_Wral
-                  0x008192                  _E_Ewds
-                  0x008198                  _PortInit
-                  0x008394                  _IntInit
-                  0x00844e                  _Initialize_TFT_ILI9341
-                  0x0085cc                  _DrawPixel_ILI9341
-                  0x008682                  _FillRec_ILI9341
-                  0x0087ba                  _FillScreen_ILI9341
-                  0x0087d6                  _SetAddrWindow_ILI9341
-                  0x00885c                  _CharWrite_XY_ILI9341_16x25
-                  0x0089a0                  _LineWrite_XY_ILI9341_16x25
-                  0x008a2e                  _WriteCommand_ILI9341
-                  0x008a66                  _Para_WriteCommand_ILI9341
-                  0x008aac                  _WriteData_ILI9341
-                  0x008ae4                  _Para_WriteData_ILI9341
-                  0x008b2a                  _Arm
-                  0x008c24                  _Clear_SR
-                  0x008c3a                  _Encoder_Switch
-                  0x008d02                  _Firing
-                  0x008d30                  _Menu
-                  0x009300                  _Multi
-                  0x00931a                  _Parse_PortB
-                  0x00936a                  _Reset
-                  0x00938e                  _Rotate
-                  0x0093cc                  _Rotory_Encoder
-                  0x009598                  _Shift
-                  0x0095b6                  _Single
-                  0x0095c8                  _DecimalInsert
-                  0x0095d2                  _Version
-                  0x00968e                  _TimerInit
-                  0x0096c6                  _SPIInit
-                  0x0096fe                  _main
-                  0x00994c                  _Arm_Alert
-                  0x009b64                  _Fire_Alert
-                  0x009d4c                  _Latch_Test
-                  0x009d52                  _SplashDisplay
+                  0x0004f0                  ___fixsfsi
+                  0x000532                  ___floatsisf
+                  0x000538                  __fpack
+                  0x000584                  __funpack
+                  0x0005ae                  __funpack2
+                  0x0005be                  __fPropagateNaN
+                  0x0005d0                  __fbopExit
+                  0x0005d8                  __fbopReturnNaN
+                  0x0005de                  ___mulsf3
+                  0x000646                  ___floatdisf
+                  0x000666                  ___floatundisf
+                  0x0006c4                  _atoi
+                  0x000702                  _utoa
+                  0x000736                  _itoa
+                  0x000752                  _strlen
+                  0x007d66                  _ADCInit
+                  0x007de0                  _DelayMs
+                  0x007e32                  _DelayUs
+                  0x007e54                  _EEPROM_Setup
+                  0x007e66                  _E_Read
+                  0x007f44                  _E_EWEN
+                  0x007ffc                  _E_Erase
+                  0x008002                  _E_Write
+                  0x008110                  _E_Eral
+                  0x008116                  _E_Wral
+                  0x00811e                  _E_Ewds
+                  0x008124                  _PortInit
+                  0x008320                  _IntInit
+                  0x0083da                  _Initialize_TFT_ILI9341
+                  0x008558                  _DrawPixel_ILI9341
+                  0x00860e                  _FillRec_ILI9341
+                  0x008746                  _FillScreen_ILI9341
+                  0x008762                  _SetAddrWindow_ILI9341
+                  0x0087e8                  _CharWrite_XY_ILI9341_16x25
+                  0x00892c                  _LineWrite_XY_ILI9341_16x25
+                  0x0089ba                  _WriteCommand_ILI9341
+                  0x0089f2                  _Para_WriteCommand_ILI9341
+                  0x008a38                  _WriteData_ILI9341
+                  0x008a70                  _Para_WriteData_ILI9341
+                  0x008ab6                  _Arm
+                  0x008bb0                  _Clear_SR
+                  0x008bc6                  _Encoder_Switch
+                  0x008c8e                  _Firing
+                  0x008cbc                  _Menu
+                  0x00928c                  _Multi
+                  0x0092a6                  _Parse_PortB
+                  0x0092f6                  _Reset
+                  0x00931a                  _Rotate
+                  0x009358                  _Rotory_Encoder
+                  0x009524                  _Shift
+                  0x009542                  _Single
+                  0x009554                  _DecimalInsert
+                  0x00955e                  _Version
+                  0x00961a                  _TimerInit
+                  0x009652                  _SPIInit
+                  0x00968a                  _main
+                  0x009738                  _Arm_Alert
+                  0x009950                  _Fire_Alert
+                  0x009b38                  _Latch_Test
+                  0x009b3e                  _SplashDisplay
 
 External Symbols in Program Memory (by name):
 
-                  0x007dda                  _ADCInit
-                  0x008b2a                  _Arm
-                  0x00994c                  _Arm_Alert
-                  0x00885c                  _CharWrite_XY_ILI9341_16x25
-                  0x008c24                  _Clear_SR
-                  0x0095c8                  _DecimalInsert
-                  0x007e54                  _DelayMs
-                  0x007ea6                  _DelayUs
-                  0x0085cc                  _DrawPixel_ILI9341
-                  0x007ec8                  _EEPROM_Setup
-                  0x007fb8                  _E_EWEN
-                  0x008184                  _E_Eral
-                  0x008070                  _E_Erase
-                  0x008192                  _E_Ewds
-                  0x007eda                  _E_Read
-                  0x00818a                  _E_Wral
-                  0x008076                  _E_Write
-                  0x008c3a                  _Encoder_Switch
-                  0x008682                  _FillRec_ILI9341
-                  0x0087ba                  _FillScreen_ILI9341
-                  0x009b64                  _Fire_Alert
-                  0x008d02                  _Firing
-                  0x00844e                  _Initialize_TFT_ILI9341
-                  0x008394                  _IntInit
-                  0x009d4c                  _Latch_Test
-                  0x0089a0                  _LineWrite_XY_ILI9341_16x25
-                  0x008d30                  _Menu
-                  0x009300                  _Multi
-                  0x008a66                  _Para_WriteCommand_ILI9341
-                  0x008ae4                  _Para_WriteData_ILI9341
-                  0x00931a                  _Parse_PortB
-                  0x008198                  _PortInit
-                  0x00936a                  _Reset
-                  0x00938e                  _Rotate
-                  0x0093cc                  _Rotory_Encoder
-                  0x0096c6                  _SPIInit
-                  0x0087d6                  _SetAddrWindow_ILI9341
-                  0x009598                  _Shift
-                  0x0095b6                  _Single
-                  0x009d52                  _SplashDisplay
-                  0x00968e                  _TimerInit
-                  0x0095d2                  _Version
-                  0x008a2e                  _WriteCommand_ILI9341
-                  0x008aac                  _WriteData_ILI9341
+                  0x007d66                  _ADCInit
+                  0x008ab6                  _Arm
+                  0x009738                  _Arm_Alert
+                  0x0087e8                  _CharWrite_XY_ILI9341_16x25
+                  0x008bb0                  _Clear_SR
+                  0x009554                  _DecimalInsert
+                  0x007de0                  _DelayMs
+                  0x007e32                  _DelayUs
+                  0x008558                  _DrawPixel_ILI9341
+                  0x007e54                  _EEPROM_Setup
+                  0x007f44                  _E_EWEN
+                  0x008110                  _E_Eral
+                  0x007ffc                  _E_Erase
+                  0x00811e                  _E_Ewds
+                  0x007e66                  _E_Read
+                  0x008116                  _E_Wral
+                  0x008002                  _E_Write
+                  0x008bc6                  _Encoder_Switch
+                  0x00860e                  _FillRec_ILI9341
+                  0x008746                  _FillScreen_ILI9341
+                  0x009950                  _Fire_Alert
+                  0x008c8e                  _Firing
+                  0x0083da                  _Initialize_TFT_ILI9341
+                  0x008320                  _IntInit
+                  0x009b38                  _Latch_Test
+                  0x00892c                  _LineWrite_XY_ILI9341_16x25
+                  0x008cbc                  _Menu
+                  0x00928c                  _Multi
+                  0x0089f2                  _Para_WriteCommand_ILI9341
+                  0x008a70                  _Para_WriteData_ILI9341
+                  0x0092a6                  _Parse_PortB
+                  0x008124                  _PortInit
+                  0x0092f6                  _Reset
+                  0x00931a                  _Rotate
+                  0x009358                  _Rotory_Encoder
+                  0x009652                  _SPIInit
+                  0x008762                  _SetAddrWindow_ILI9341
+                  0x009524                  _Shift
+                  0x009542                  _Single
+                  0x009b3e                  _SplashDisplay
+                  0x00961a                  _TimerInit
+                  0x00955e                  _Version
+                  0x0089ba                  _WriteCommand_ILI9341
+                  0x008a38                  _WriteData_ILI9341
                   0x0002c8                  __ADC1Interrupt
                   0x0002dc                  __CNInterrupt
                   0x000466                  __DefaultInterrupt
@@ -345,32 +333,26 @@ External Symbols in Program Memory (by name):
                   0x0003d4                  __T1Interrupt
                   0x000450                  __T4Interrupt
                   0x00046c                  ___divsf3
-                  0x0004f0                  ___eqsf2
-                  0x0004f8                  ___fixsfsi
-                  0x000684                  ___floatdisf
-                  0x00053a                  ___floatsisf
-                  0x0006a4                  ___floatundisf
-                  0x0004f4                  ___gesf2
-                  0x0004f4                  ___gtsf2
-                  0x0004f0                  ___lesf2
-                  0x0004f0                  ___ltsf2
-                  0x0005e6                  ___mulsf3
+                  0x0004f0                  ___fixsfsi
+                  0x000646                  ___floatdisf
+                  0x000532                  ___floatsisf
+                  0x000666                  ___floatundisf
+                  0x0005de                  ___mulsf3
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
-                  0x0005c6                  __fPropagateNaN
-                  0x0005d8                  __fbopExit
-                  0x0005e0                  __fbopReturnNaN
-                  0x00064e                  __fcompare
-                  0x000540                  __fpack
-                  0x00058c                  __funpack
-                  0x0005b6                  __funpack2
+                  0x0005be                  __fPropagateNaN
+                  0x0005d0                  __fbopExit
+                  0x0005d8                  __fbopReturnNaN
+                  0x000538                  __fpack
+                  0x000584                  __funpack
+                  0x0005ae                  __funpack2
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000702                  _atoi
-                  0x000774                  _itoa
-                  0x0096fe                  _main
-                  0x000790                  _strlen
-                  0x000740                  _utoa
+                  0x0006c4                  _atoi
+                  0x000736                  _itoa
+                  0x00968a                  _main
+                  0x000752                  _strlen
+                  0x000702                  _utoa
 
 Memory Configuration
 
@@ -406,7 +388,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x59c
+.text             0x000200        0x55e
  *(.init)
  .init            0x000200         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
@@ -440,53 +422,43 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
                   0x00046a                  __crt_start_mode_normal
  .libm.divfs3     0x00046c         0x84 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(divsf3.eo)
                   0x00046c                  ___divsf3
- .libm.eqsf2      0x0004f0          0x4 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(feqltle.eo)
-                  0x0004f0                  ___eqsf2
-                  0x0004f0                  ___ltsf2
-                  0x0004f0                  ___lesf2
- .libm.gtsf2      0x0004f4          0x4 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fgtge.eo)
-                  0x0004f4                  ___gesf2
-                  0x0004f4                  ___gtsf2
- .libm.fixsfsi    0x0004f8         0x42 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
-                  0x0004f8                  _(float, int, long long, short, float, short, int)
+ .libm.fixsfsi    0x0004f0         0x42 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
+                  0x0004f0                  _(float, int, long long, short, float, short, int)
  .libm.floatsisf
-                  0x00053a          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
-                  0x00053a                  ___floatsisf
- .libm.fpack      0x000540         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fpack.eo)
-                  0x000540                  __fpack
- .libm.funpack    0x00058c         0x2a c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack.eo)
-                  0x00058c                  __funpack
+                  0x000532          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
+                  0x000532                  ___floatsisf
+ .libm.fpack      0x000538         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x000538                  __fpack
+ .libm.funpack    0x000584         0x2a c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x000584                  __funpack
  .libm.funpack2
-                  0x0005b6         0x10 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack2.eo)
-                  0x0005b6                  __funpack2
+                  0x0005ae         0x10 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x0005ae                  __funpack2
  .libm.fPropagateNaN
-                  0x0005c6         0x12 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
-                  0x0005c6                  __fPropagateNaN
+                  0x0005be         0x12 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x0005be                  __fPropagateNaN
  .libm.fbobExit
-                  0x0005d8          0x8 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
-                  0x0005d8                  __fbopExit
+                  0x0005d0          0x8 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x0005d0                  __fbopExit
  .libm.fbopReturnNaN
-                  0x0005e0          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
-                  0x0005e0                  __fbopReturnNaN
- .libm.mulsf3     0x0005e6         0x68 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
-                  0x0005e6                  ___mulsf3
- .libm.fcompare
-                  0x00064e         0x36 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fcompare.eo)
-                  0x00064e                  __fcompare
+                  0x0005d8          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x0005d8                  __fbopReturnNaN
+ .libm.mulsf3     0x0005de         0x68 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x0005de                  ___mulsf3
  .libm.floatdisf
-                  0x000684         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
-                  0x000684                  ___floatdisf
+                  0x000646         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
+                  0x000646                  ___floatdisf
  .libm.floatundisf
-                  0x0006a4         0x5e c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
-                  0x0006a4                  ___floatundisf
- .libc.atoi       0x000702         0x3e c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(atoi.eo)
-                  0x000702                  _atoi
- .libc.utoa       0x000740         0x34 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(itoa.eo)
-                  0x000740                  _utoa
- .libc.itoa       0x000774         0x1c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(itoa.eo)
-                  0x000774                  _itoa
- .libc.strlen     0x000790          0xc c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(strlen.eo)
-                  0x000790                  _strlen
+                  0x000666         0x5e c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x000666                  ___floatundisf
+ .libc.atoi       0x0006c4         0x3e c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(atoi.eo)
+                  0x0006c4                  _atoi
+ .libc.utoa       0x000702         0x34 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(itoa.eo)
+                  0x000702                  _utoa
+ .libc.itoa       0x000736         0x1c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(itoa.eo)
+                  0x000736                  _itoa
+ .libc.strlen     0x000752          0xc c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(strlen.eo)
+                  0x000752                  _strlen
 
 usercode
  *(usercode)
@@ -509,13 +481,13 @@ __CONFIG1
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x2ac build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_line       0x000000        0x924
+.debug_line       0x000000        0x8fc
  *(.debug_line)
- .debug_line      0x000000        0x924 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_line      0x000000        0x8fc build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_frame      0x000000        0x7e4
+.debug_frame      0x000000        0x7ac
  *(.debug_frame)
- .debug_frame     0x000000        0x7e4 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_frame     0x000000        0x7ac build/default/production/Dutch_Dozen_V5.0.o
 
 .debug_str        0x000000        0x304
  *(.debug_str)
@@ -1127,7 +1099,7 @@ LOAD data_init
                   0x000018        0x6b0 build/default/production/Dutch_Dozen_V5.0.o
 
 __c30_signature
-                  0x0006c8         0x72
+                  0x0006c8         0x60
  __c30_signature
                   0x0006c8          0x6 build/default/production/Dutch_Dozen_V5.0.o
  __c30_signature
@@ -1137,35 +1109,29 @@ __c30_signature
  __c30_signature
                   0x0006da          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(divsf3.eo)
  __c30_signature
-                  0x0006e0          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(feqltle.eo)
+                  0x0006e0          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
  __c30_signature
-                  0x0006e6          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fgtge.eo)
+                  0x0006e6          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
  __c30_signature
-                  0x0006ec          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fixsfsi.eo)
+                  0x0006ec          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x0006f2          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
+                  0x0006f2          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x0006f8          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x0006f8          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x0006fe          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x0006fe          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
  __c30_signature
-                  0x000704          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x000704          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x00070a          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x00070a          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
  __c30_signature
-                  0x000710          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x000710          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
  __c30_signature
-                  0x000716          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(fcompare.eo)
+                  0x000716          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(atoi.eo)
  __c30_signature
-                  0x00071c          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
+                  0x00071c          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(itoa.eo)
  __c30_signature
-                  0x000722          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
- __c30_signature
-                  0x000728          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(atoi.eo)
- __c30_signature
-                  0x00072e          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(itoa.eo)
- __c30_signature
-                  0x000734          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(strlen.eo)
+                  0x000722          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(strlen.eo)
 
 .nbss               0x0800         0x20
  .nbss              0x0800         0x20 build/default/production/Dutch_Dozen_V5.0.o
@@ -1260,56 +1226,56 @@ __c30_signature
  .ivt._T4Interrupt
                   0x00004a          0x2 build/default/production/Dutch_Dozen_V5.0.o
 
-.const              0x879c       0x763e load address 0x00079c  
- .const             0x879c       0x763e build/default/production/Dutch_Dozen_V5.0.o
+.const              0x875e       0x7608 load address 0x00075e  
+ .const             0x875e       0x7608 build/default/production/Dutch_Dozen_V5.0.o
 
-.text             0x007dda       0x2056
- .text            0x007dda       0x2056 build/default/production/Dutch_Dozen_V5.0.o
-                  0x007dda                  _ADCInit
-                  0x007e54                  _DelayMs
-                  0x007ea6                  _DelayUs
-                  0x007ec8                  _EEPROM_Setup
-                  0x007eda                  _E_Read
-                  0x007fb8                  _E_EWEN
-                  0x008070                  _E_Erase
-                  0x008076                  _E_Write
-                  0x008184                  _E_Eral
-                  0x00818a                  _E_Wral
-                  0x008192                  _E_Ewds
-                  0x008198                  _PortInit
-                  0x008394                  _IntInit
-                  0x00844e                  _Initialize_TFT_ILI9341
-                  0x0085cc                  _DrawPixel_ILI9341
-                  0x008682                  _FillRec_ILI9341
-                  0x0087ba                  _FillScreen_ILI9341
-                  0x0087d6                  _SetAddrWindow_ILI9341
-                  0x00885c                  _CharWrite_XY_ILI9341_16x25
-                  0x0089a0                  _LineWrite_XY_ILI9341_16x25
-                  0x008a2e                  _WriteCommand_ILI9341
-                  0x008a66                  _Para_WriteCommand_ILI9341
-                  0x008aac                  _WriteData_ILI9341
-                  0x008ae4                  _Para_WriteData_ILI9341
-                  0x008b2a                  _Arm
-                  0x008c24                  _Clear_SR
-                  0x008c3a                  _Encoder_Switch
-                  0x008d02                  _Firing
-                  0x008d30                  _Menu
-                  0x009300                  _Multi
-                  0x00931a                  _Parse_PortB
-                  0x00936a                  _Reset
-                  0x00938e                  _Rotate
-                  0x0093cc                  _Rotory_Encoder
-                  0x009598                  _Shift
-                  0x0095b6                  _Single
-                  0x0095c8                  _DecimalInsert
-                  0x0095d2                  _Version
-                  0x00968e                  _TimerInit
-                  0x0096c6                  _SPIInit
-                  0x0096fe                  _main
-                  0x00994c                  _Arm_Alert
-                  0x009b64                  _Fire_Alert
-                  0x009d4c                  _Latch_Test
-                  0x009d52                  _SplashDisplay
+.text             0x007d66       0x1eb6
+ .text            0x007d66       0x1eb6 build/default/production/Dutch_Dozen_V5.0.o
+                  0x007d66                  _ADCInit
+                  0x007de0                  _DelayMs
+                  0x007e32                  _DelayUs
+                  0x007e54                  _EEPROM_Setup
+                  0x007e66                  _E_Read
+                  0x007f44                  _E_EWEN
+                  0x007ffc                  _E_Erase
+                  0x008002                  _E_Write
+                  0x008110                  _E_Eral
+                  0x008116                  _E_Wral
+                  0x00811e                  _E_Ewds
+                  0x008124                  _PortInit
+                  0x008320                  _IntInit
+                  0x0083da                  _Initialize_TFT_ILI9341
+                  0x008558                  _DrawPixel_ILI9341
+                  0x00860e                  _FillRec_ILI9341
+                  0x008746                  _FillScreen_ILI9341
+                  0x008762                  _SetAddrWindow_ILI9341
+                  0x0087e8                  _CharWrite_XY_ILI9341_16x25
+                  0x00892c                  _LineWrite_XY_ILI9341_16x25
+                  0x0089ba                  _WriteCommand_ILI9341
+                  0x0089f2                  _Para_WriteCommand_ILI9341
+                  0x008a38                  _WriteData_ILI9341
+                  0x008a70                  _Para_WriteData_ILI9341
+                  0x008ab6                  _Arm
+                  0x008bb0                  _Clear_SR
+                  0x008bc6                  _Encoder_Switch
+                  0x008c8e                  _Firing
+                  0x008cbc                  _Menu
+                  0x00928c                  _Multi
+                  0x0092a6                  _Parse_PortB
+                  0x0092f6                  _Reset
+                  0x00931a                  _Rotate
+                  0x009358                  _Rotory_Encoder
+                  0x009524                  _Shift
+                  0x009542                  _Single
+                  0x009554                  _DecimalInsert
+                  0x00955e                  _Version
+                  0x00961a                  _TimerInit
+                  0x009652                  _SPIInit
+                  0x00968a                  _main
+                  0x009738                  _Arm_Alert
+                  0x009950                  _Fire_Alert
+                  0x009b38                  _Latch_Test
+                  0x009b3e                  _SplashDisplay
 
-.dinit            0x009e30         0x9a
- .dinit           0x009e30         0x9a data_init
+.dinit            0x009c1c         0x9a
+ .dinit           0x009c1c         0x9a data_init
