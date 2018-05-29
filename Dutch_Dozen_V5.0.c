@@ -342,10 +342,10 @@ int main(int argc, char** argv) {
     // ***********************************
     // *** Display Start Menu Routine ****
     // ***********************************
-    
+
     Disp_Battery_Voltage();
 
-    
+
     // MenuNo is not saved in memory at this time. Because of the slow menu
     // update speed, not all of the menu lines are drawn. This causes issues
     // when jumping to a saved menu. This saved feature will be implemented
@@ -358,16 +358,14 @@ int main(int argc, char** argv) {
     Menu();
 
     //***** 8bit display testing ground****
-   // while(1) {
-    // Para_WriteData_ILI9341(0x00);       
-    //}
-    
-    
+    while (1) {
+        Para_WriteData_ILI9341(0x01);
+    }
+
 
     // *** Main endless program loop
     while (1) // Forever loop.
-
-    {
+ {
         // Display and return the battery voltage
 
         Batt_Volt = Disp_Battery_Voltage();

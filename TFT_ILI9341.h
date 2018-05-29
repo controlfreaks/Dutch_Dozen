@@ -156,6 +156,7 @@ void FillRec_ILI9341(long int x, long int y, long int w, long int h,
         long int colour);
 void FillScreen_ILI9341(int colour);
 void Initialize_TFT_ILI9341(void);
+void Para_Initialize_TFT_ILI9341(void);
 //void LineWrite_XY_ILI9341(char *digit, long int x, long int y, long int fore_colour,
 //        long int back_colour);
 void LineWrite_XY_ILI9341_16x25(char *digit, int x, int line, int fore_colour,
@@ -289,6 +290,126 @@ void Initialize_TFT_ILI9341(void) {
     WriteCommand_ILI9341(ILI9341_DISPON); //Display on 
     DelayMs(120);
 }
+
+void Para_Initialize_TFT_ILI9341(void) {
+    RES = 0; // Reset the TFT.
+    DelayMs(120);
+    RES = 1; // Take TFT out of reset.
+
+    Para_WriteCommand_ILI9341(ILI9341_SWRESET);
+    DelayMs(10);
+
+
+    Para_WriteCommand_ILI9341(0xEF);
+    Para_WriteData_ILI9341(0x03);
+    Para_WriteData_ILI9341(0x80);
+    Para_WriteData_ILI9341(0x02);
+
+    Para_WriteCommand_ILI9341(0xCF);
+    Para_WriteData_ILI9341(0x00);
+    Para_WriteData_ILI9341(0XC1);
+    Para_WriteData_ILI9341(0X30);
+
+    Para_WriteCommand_ILI9341(0xED);
+    Para_WriteData_ILI9341(0x64);
+    Para_WriteData_ILI9341(0x03);
+    Para_WriteData_ILI9341(0X12);
+    Para_WriteData_ILI9341(0X81);
+
+    Para_WriteCommand_ILI9341(0xE8);
+    Para_WriteData_ILI9341(0x85);
+    Para_WriteData_ILI9341(0x00);
+    Para_WriteData_ILI9341(0x78);
+
+    Para_WriteCommand_ILI9341(0xCB);
+    Para_WriteData_ILI9341(0x39);
+    Para_WriteData_ILI9341(0x2C);
+    Para_WriteData_ILI9341(0x00);
+    Para_WriteData_ILI9341(0x34);
+    Para_WriteData_ILI9341(0x02);
+
+    Para_WriteCommand_ILI9341(0xF7);
+    Para_WriteData_ILI9341(0x20);
+
+    Para_WriteCommand_ILI9341(0xEA);
+    Para_WriteData_ILI9341(0x00);
+    Para_WriteData_ILI9341(0x00);
+
+    Para_WriteCommand_ILI9341(ILI9341_PWCTR1); //Power control 
+    Para_WriteData_ILI9341(0x23); //VRH[5:0] 
+
+    Para_WriteCommand_ILI9341(ILI9341_PWCTR2); //Power control 
+    Para_WriteData_ILI9341(0x10); //SAP[2:0];BT[3:0] 
+
+    Para_WriteCommand_ILI9341(ILI9341_VMCTR1); //VCM control 
+    Para_WriteData_ILI9341(0x3e); //Â¶Ã?Â±Ã?Â¶Ã?ÂµÃ·Â½Ã?
+    Para_WriteData_ILI9341(0x28);
+
+    Para_WriteCommand_ILI9341(ILI9341_VMCTR2); //VCM control2 
+    Para_WriteData_ILI9341(0x86); //--
+
+    Para_WriteCommand_ILI9341(ILI9341_MADCTL); // Memory Access Control 
+    Para_WriteData_ILI9341(0x28);
+
+    Para_WriteCommand_ILI9341(ILI9341_PIXFMT); // DPI and DBI set to 16 bits/pixel
+    Para_WriteData_ILI9341(0x55); // 16 bits/pixel (65k colour, RGB 5-6-6 bit input)
+    //WriteData_ILI9341(0x66); // 18 bits/pixel (262k colour, RGB 6-6-6 bit input)
+
+    Para_WriteCommand_ILI9341(ILI9341_FRMCTR1);
+    Para_WriteData_ILI9341(0x00);
+    Para_WriteData_ILI9341(0x18);
+
+    Para_WriteCommand_ILI9341(ILI9341_DFUNCTR); // Display Function Control 
+    Para_WriteData_ILI9341(0x08);
+    Para_WriteData_ILI9341(0x82);
+    Para_WriteData_ILI9341(0x27);
+
+    Para_WriteCommand_ILI9341(0xF2); // 3Gamma Function Disable 
+    Para_WriteData_ILI9341(0x00);
+
+    Para_WriteCommand_ILI9341(ILI9341_GAMMASET); //Gamma curve selected 
+    Para_WriteData_ILI9341(0x01);
+
+    Para_WriteCommand_ILI9341(ILI9341_GMCTRP1); //Set Gamma 
+    Para_WriteData_ILI9341(0x0F);
+    Para_WriteData_ILI9341(0x31);
+    Para_WriteData_ILI9341(0x2B);
+    Para_WriteData_ILI9341(0x0C);
+    Para_WriteData_ILI9341(0x0E);
+    Para_WriteData_ILI9341(0x08);
+    Para_WriteData_ILI9341(0x4E);
+    Para_WriteData_ILI9341(0xF1);
+    Para_WriteData_ILI9341(0x37);
+    Para_WriteData_ILI9341(0x07);
+    Para_WriteData_ILI9341(0x10);
+    Para_WriteData_ILI9341(0x03);
+    Para_WriteData_ILI9341(0x0E);
+    Para_WriteData_ILI9341(0x09);
+    Para_WriteData_ILI9341(0x00);
+
+    Para_WriteCommand_ILI9341(ILI9341_GMCTRN1); //Set Gamma 
+    Para_WriteData_ILI9341(0x00);
+    Para_WriteData_ILI9341(0x0E);
+    Para_WriteData_ILI9341(0x14);
+    Para_WriteData_ILI9341(0x03);
+    Para_WriteData_ILI9341(0x11);
+    Para_WriteData_ILI9341(0x07);
+    Para_WriteData_ILI9341(0x31);
+    Para_WriteData_ILI9341(0xC1);
+    Para_WriteData_ILI9341(0x48);
+    Para_WriteData_ILI9341(0x08);
+    Para_WriteData_ILI9341(0x0F);
+    Para_WriteData_ILI9341(0x0C);
+    Para_WriteData_ILI9341(0x31);
+    Para_WriteData_ILI9341(0x36);
+    Para_WriteData_ILI9341(0x0F);
+
+    Para_WriteCommand_ILI9341(ILI9341_SLPOUT); //Exit Sleep 
+    DelayMs(120);
+    Para_WriteCommand_ILI9341(ILI9341_DISPON); //Display on 
+    DelayMs(120);
+}
+
 
 void DrawPixel_ILI9341(int x, int y, int colour) {
 
@@ -507,25 +628,34 @@ void WriteCommand_ILI9341(unsigned char Command) {
 }
 
 void Para_WriteCommand_ILI9341(unsigned char Command) {
+    int old_Latch = 0; // Current setting of PortD.
+    int data_Mask = 0; // Data mask with rest of bits zero.
+    int mask = 0xFE01; // D1-D8 zeros, the rest ones.
+
     IEC1bits.CNIE = 0; // disable CN ISR
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
-    IEC0bits.INT0IE = 0; // disable INT0 ISR 
+    IEC0bits.INT0IE = 0; // disable INT0 ISR
     Nop(); // Added for interrupt disable timing.
+
 
     Para_DC = COMMAND; // Write Command, leave low
     //Original delay of 12 NOPs approx 1.5uS.
     Para_CS = 0; // Activate ~CS
+    Para_WR = 0;    // Start writing process, dump data on bus.
     //Original delay of 15 NOPs approx 1.9uS.
-    //SPI2BUF = Command;
-    LATD = Command; // Load data into PORTD.
-    LATD = LATD << 1; // Shift by 1, using pins D1-D8
-    LATD = LATD & 0x01FE; // Mask off the unwanted bits;
+    //SPI2BUF = Data;
+    old_Latch = PORTD;  // Read portD
+    old_Latch = (old_Latch & mask); // 'zero out' bit mask pattern.
+    data_Mask = (Command << 1);        // Shift data to bit position 1-8.
+    LATD = (old_Latch | data_Mask); // Mask in new data.
+    //_LATD1 = 0; //***testing 
     //Original delay of 23 NOPs approx 2.8uS.
-    Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
-    Nop(), Nop();
+    Para_WR = 1;    // Latch data on bus.
+    Nop();//, Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
+    //Nop(), Nop();
     Para_CS = 1; // deactivate ~CS.
-
+    //Para_DC = 0;//****test condition to force high to see on scope.
     IEC1bits.CNIE = 1; // enable CN ISR
     IEC3bits.INT3IE = 1; // enable INT3 ISR
     IEC3bits.INT4IE = 1; // enable INT4 ISR
@@ -576,18 +706,20 @@ void Para_WriteData_ILI9341(unsigned char Data) {
     Para_DC = DATA; // Write Command, leave low
     //Original delay of 12 NOPs approx 1.5uS.
     Para_CS = 0; // Activate ~CS
+    Para_WR = 0;    // Start writing process, dump data on bus.
     //Original delay of 15 NOPs approx 1.9uS.
     //SPI2BUF = Data;
     old_Latch = PORTD;  // Read portD
     old_Latch = (old_Latch & mask); // 'zero out' bit mask pattern.
     data_Mask = (Data << 1);        // Shift data to bit position 1-8.
     LATD = (old_Latch | data_Mask); // Mask in new data.
-   // _LATD1 = 1; //***testing 
+    //_LATD1 = 0; //***testing 
     //Original delay of 23 NOPs approx 2.8uS.
-    Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
-    Nop(), Nop();
+    Para_WR = 1;    // Latch data on bus.
+    Nop();//, Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
+    //Nop(), Nop();
     Para_CS = 1; // deactivate ~CS.
-    Para_DC = 0;//****test condition to force high to see on scope.
+    //Para_DC = 0;//****test condition to force high to see on scope.
     IEC1bits.CNIE = 1; // enable CN ISR
     IEC3bits.INT3IE = 1; // enable INT3 ISR
     IEC3bits.INT4IE = 1; // enable INT4 ISR
