@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/Dutch_Dozen.production.elf">
+  <executable name="dist/default/debug/Dutch_Dozen.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>8192</length>
-      <used>232</used>
-      <free>7960</free>
+      <used>312</used>
+      <free>7880</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>131322</length>
-      <used>60234</used>
-      <free>71088</free>
+      <used>59433</used>
+      <free>71889</free>
     </memory>
   </executable>
 </project>

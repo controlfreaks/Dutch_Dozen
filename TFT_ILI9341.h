@@ -536,6 +536,7 @@ void Para_WriteCommand_ILI9341(unsigned char Command) {
 }
 
 void WriteData_ILI9341(unsigned char Data) {
+
     IEC1bits.CNIE = 0; // disable CN ISR
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
@@ -558,8 +559,15 @@ void WriteData_ILI9341(unsigned char Data) {
     IEC3bits.INT4IE = 1; // enable INT4 ISR
     IEC0bits.INT0IE = 1; // enable INT0 ISR
 }
+// This is the data-write function for the display in 8bit mode.
+// The data has to be bit masked to the port as to not interfere with the
+// control signals, also on the same port.
 
 void Para_WriteData_ILI9341(unsigned char Data) {
+    int old_Latch = 0; // Current setting of PortD.
+    int data_Mask = 0; // Data mask with rest of bits zero.
+    int mask = 0xFE01; // D1-D8 zeros, the rest ones.
+
     IEC1bits.CNIE = 0; // disable CN ISR
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
@@ -572,14 +580,16 @@ void Para_WriteData_ILI9341(unsigned char Data) {
     Para_CS = 0; // Activate ~CS
     //Original delay of 15 NOPs approx 1.9uS.
     //SPI2BUF = Data;
-    LATD = Data; // Load data into PORTD.
-    LATD = LATD << 1; // Shift by 1, using pins D1-D8
-    LATD = LATD & 0x01FE; // Mask off the unwanted bits;
+    old_Latch = PORTD;  // Read portD
+    old_Latch = (old_Latch & mask); // 'zero out' bit mask pattern.
+    data_Mask = (Data << 1);        // Shift data to bit position 1-8.
+    LATD = (old_Latch | data_Mask); // Mask in new data.
+   // _LATD1 = 1; //***testing 
     //Original delay of 23 NOPs approx 2.8uS.
     Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
     Nop(), Nop();
     Para_CS = 1; // deactivate ~CS.
-
+    Para_DC = 0;//****test condition to force high to see on scope.
     IEC1bits.CNIE = 1; // enable CN ISR
     IEC3bits.INT3IE = 1; // enable INT3 ISR
     IEC3bits.INT4IE = 1; // enable INT4 ISR

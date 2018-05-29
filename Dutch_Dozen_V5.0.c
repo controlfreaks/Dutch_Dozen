@@ -358,9 +358,9 @@ int main(int argc, char** argv) {
     Menu();
 
     //***** 8bit display testing ground****
-    while(1) {
-     Para_WriteData_ILI9341(0x00);       
-    }
+   // while(1) {
+    // Para_WriteData_ILI9341(0x00);       
+    //}
     
     
 
