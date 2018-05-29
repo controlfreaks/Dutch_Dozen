@@ -149,19 +149,18 @@
 // *** Function Prototypes here ***
 
 
-void CharWrite_XY_ILI9341_16x25(int digit, long int x_start, long int y_start,
-        long int fore_colour, long int back_colour);
-void DrawPixel_ILI9341(long int x, long int y, long int colour);
+void CharWrite_XY_ILI9341_16x25(int digit, int x_start, int y_start,
+        int fore_colour, int back_colour);
+void DrawPixel_ILI9341(int x, int y, int colour);
 void FillRec_ILI9341(long int x, long int y, long int w, long int h,
         long int colour);
-void FillScreen_ILI9341(long int colour);
+void FillScreen_ILI9341(int colour);
 void Initialize_TFT_ILI9341(void);
 //void LineWrite_XY_ILI9341(char *digit, long int x, long int y, long int fore_colour,
 //        long int back_colour);
-void LineWrite_XY_ILI9341_16x25(char *digit, long int x, long int line, long int fore_colour,
-        long int back_colour);
-void SetAddrWindow_ILI9341(long int X_Start, long int Y_Start, long int X_End,
-        long int Y_End);
+void LineWrite_XY_ILI9341_16x25(char *digit, int x, int line, int fore_colour,
+        int back_colour);
+void SetAddrWindow_ILI9341(int X_Start, int Y_Start, int X_End, int Y_End);
 void WriteCommand_ILI9341(unsigned char Command);
 void Para_WriteCommand_ILI9341(unsigned char Command);
 void WriteData_ILI9341(unsigned char Data);
@@ -291,7 +290,7 @@ void Initialize_TFT_ILI9341(void) {
     DelayMs(120);
 }
 
-void DrawPixel_ILI9341(long int x, long int y, long int colour) {
+void DrawPixel_ILI9341(int x, int y, int colour) {
 
     int colour_hi;
     int colour_low;
@@ -360,12 +359,11 @@ void FillRec_ILI9341(long int x, long int y, long int w, long int h, long int co
     IEC0bits.INT0IE = 1; // enable INT0 ISR
 }
 
-void FillScreen_ILI9341(long int colour) {
+void FillScreen_ILI9341(int colour) {
     FillRec_ILI9341(0, 0, ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT, colour);
 }
 
-void SetAddrWindow_ILI9341(long int X_Start, long int Y_Start, long int X_End,
-        long int Y_End) {
+void SetAddrWindow_ILI9341(int X_Start, int Y_Start, int X_End, int Y_End) {
     WriteCommand_ILI9341(ILI9341_CASET); // Column addr set (Horizontal, 480 Max.)
     WriteData_ILI9341(X_Start >> 8);
     WriteData_ILI9341(X_Start & 0xFF); // XSTART 
@@ -411,8 +409,8 @@ void CharWrite_XY_ILI9341(int digit, long int x_start, long int y_start,
     }
 }
  */
-void CharWrite_XY_ILI9341_16x25(int digit, long int x_start, long int y_start,
-        long int fore_colour, long int back_colour) {
+void CharWrite_XY_ILI9341_16x25(int digit, int x_start, int y_start,
+        int fore_colour, int back_colour) {
     int col = 0;
     int row = 0;
     int test = 0;
@@ -461,8 +459,8 @@ void LineWrite_XY_ILI9341(char *digit, long int x, long int y, long int fore_col
 
 }
  */
-void LineWrite_XY_ILI9341_16x25(char *digit, long int x, long int line, long int fore_colour,
-        long int back_colour) {
+void LineWrite_XY_ILI9341_16x25(char *digit, int x, int line, int fore_colour,
+        int back_colour) {
     int xtemp = x;
 
     SetAddrWindow_ILI9341(x, line, 16, 22);
