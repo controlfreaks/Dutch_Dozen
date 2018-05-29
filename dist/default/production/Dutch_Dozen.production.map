@@ -86,10 +86,10 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x55e           0x80d  (2061)
 .const                       0x75e              0x7608          0xb10c  (45324)
-.text                       0x7d66              0x1cd6          0x2b41  (11073)
-.dinit                      0x9a3c                0x9a            0xe7  (231)
+.text                       0x7d66              0x1cb0          0x2b08  (11016)
+.dinit                      0x9a16                0x9a            0xe7  (231)
 
-                 Total program memory used (bytes):         0xe541  (58689) 44%
+                 Total program memory used (bytes):         0xe508  (58632) 44%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -202,8 +202,8 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init
                   0x000252                  __data_init_standard
+                  0x000252                  __data_init
                   0x0002c8                  __ADC1Interrupt
                   0x0002dc                  __CNInterrupt
                   0x000306                  __INT0Interrupt
@@ -249,42 +249,43 @@ External Symbols in Program Memory (by address):
                   0x00875e                  _FillRec_ILI9341
                   0x008882                  _FillScreen_ILI9341
                   0x0088a0                  _SetAddrWindow_ILI9341
-                  0x0088f2                  _CharWrite_XY_ILI9341_16x25
-                  0x0089e2                  _LineWrite_XY_ILI9341_16x25
-                  0x008a48                  _WriteCommand_ILI9341
-                  0x008a80                  _Para_WriteCommand_ILI9341
-                  0x008ac8                  _WriteData_ILI9341
-                  0x008b00                  _Para_WriteData_ILI9341
-                  0x008b48                  _Arm
-                  0x008be6                  _Clear_SR
-                  0x008bfc                  _Encoder_Switch
-                  0x008cc4                  _Firing
-                  0x008cf2                  _Menu
-                  0x009198                  _Multi
-                  0x0091b2                  _Parse_PortB
-                  0x009202                  _Reset
-                  0x009226                  _Rotate
-                  0x009264                  _Rotory_Encoder
-                  0x009408                  _Shift
-                  0x009426                  _Single
-                  0x009438                  _DecimalInsert
-                  0x009442                  _Version
-                  0x0094c0                  _TimerInit
-                  0x0094f8                  _SPIInit
-                  0x009530                  _main
-                  0x0095de                  _Arm_Alert
-                  0x0097b2                  _Fire_Alert
-                  0x00996c                  _Latch_Test
-                  0x009972                  _SplashDisplay
+                  0x0088f2                  _Para_SetAddrWindow_ILI9341
+                  0x008944                  _CharWrite_XY_ILI9341_16x25
+                  0x008a34                  _LineWrite_XY_ILI9341_16x25
+                  0x008a9a                  _WriteCommand_ILI9341
+                  0x008ad2                  _Para_WriteCommand_ILI9341
+                  0x008b1a                  _WriteData_ILI9341
+                  0x008b52                  _Para_WriteData_ILI9341
+                  0x008b9a                  _Arm
+                  0x008c38                  _Clear_SR
+                  0x008c4e                  _Encoder_Switch
+                  0x008d16                  _Firing
+                  0x008d44                  _Menu
+                  0x0091ea                  _Multi
+                  0x009204                  _Parse_PortB
+                  0x009254                  _Reset
+                  0x009278                  _Rotate
+                  0x0092b6                  _Rotory_Encoder
+                  0x00945a                  _Shift
+                  0x009478                  _Single
+                  0x00948a                  _DecimalInsert
+                  0x009494                  _Version
+                  0x009512                  _TimerInit
+                  0x00954a                  _SPIInit
+                  0x009582                  _main
+                  0x0095b8                  _Arm_Alert
+                  0x00978c                  _Fire_Alert
+                  0x009946                  _Latch_Test
+                  0x00994c                  _SplashDisplay
 
 External Symbols in Program Memory (by name):
 
                   0x007d66                  _ADCInit
-                  0x008b48                  _Arm
-                  0x0095de                  _Arm_Alert
-                  0x0088f2                  _CharWrite_XY_ILI9341_16x25
-                  0x008be6                  _Clear_SR
-                  0x009438                  _DecimalInsert
+                  0x008b9a                  _Arm
+                  0x0095b8                  _Arm_Alert
+                  0x008944                  _CharWrite_XY_ILI9341_16x25
+                  0x008c38                  _Clear_SR
+                  0x00948a                  _DecimalInsert
                   0x007de0                  _DelayMs
                   0x007e32                  _DelayUs
                   0x0086d6                  _DrawPixel_ILI9341
@@ -296,34 +297,35 @@ External Symbols in Program Memory (by name):
                   0x007e66                  _E_Read
                   0x008116                  _E_Wral
                   0x008002                  _E_Write
-                  0x008bfc                  _Encoder_Switch
+                  0x008c4e                  _Encoder_Switch
                   0x00875e                  _FillRec_ILI9341
                   0x008882                  _FillScreen_ILI9341
-                  0x0097b2                  _Fire_Alert
-                  0x008cc4                  _Firing
+                  0x00978c                  _Fire_Alert
+                  0x008d16                  _Firing
                   0x0083da                  _Initialize_TFT_ILI9341
                   0x008320                  _IntInit
-                  0x00996c                  _Latch_Test
-                  0x0089e2                  _LineWrite_XY_ILI9341_16x25
-                  0x008cf2                  _Menu
-                  0x009198                  _Multi
+                  0x009946                  _Latch_Test
+                  0x008a34                  _LineWrite_XY_ILI9341_16x25
+                  0x008d44                  _Menu
+                  0x0091ea                  _Multi
                   0x008558                  _Para_Initialize_TFT_ILI9341
-                  0x008a80                  _Para_WriteCommand_ILI9341
-                  0x008b00                  _Para_WriteData_ILI9341
-                  0x0091b2                  _Parse_PortB
+                  0x0088f2                  _Para_SetAddrWindow_ILI9341
+                  0x008ad2                  _Para_WriteCommand_ILI9341
+                  0x008b52                  _Para_WriteData_ILI9341
+                  0x009204                  _Parse_PortB
                   0x008124                  _PortInit
-                  0x009202                  _Reset
-                  0x009226                  _Rotate
-                  0x009264                  _Rotory_Encoder
-                  0x0094f8                  _SPIInit
+                  0x009254                  _Reset
+                  0x009278                  _Rotate
+                  0x0092b6                  _Rotory_Encoder
+                  0x00954a                  _SPIInit
                   0x0088a0                  _SetAddrWindow_ILI9341
-                  0x009408                  _Shift
-                  0x009426                  _Single
-                  0x009972                  _SplashDisplay
-                  0x0094c0                  _TimerInit
-                  0x009442                  _Version
-                  0x008a48                  _WriteCommand_ILI9341
-                  0x008ac8                  _WriteData_ILI9341
+                  0x00945a                  _Shift
+                  0x009478                  _Single
+                  0x00994c                  _SplashDisplay
+                  0x009512                  _TimerInit
+                  0x009494                  _Version
+                  0x008a9a                  _WriteCommand_ILI9341
+                  0x008b1a                  _WriteData_ILI9341
                   0x0002c8                  __ADC1Interrupt
                   0x0002dc                  __CNInterrupt
                   0x000466                  __DefaultInterrupt
@@ -352,7 +354,7 @@ External Symbols in Program Memory (by name):
                   0x000200                  __resetPRI
                   0x0006c4                  _atoi
                   0x000736                  _itoa
-                  0x009530                  _main
+                  0x009582                  _main
                   0x000752                  _strlen
                   0x000702                  _utoa
 
@@ -474,22 +476,22 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x5aa8
+.debug_info       0x000000       0x5b20
  *(.debug_info)
- .debug_info      0x000000       0x5aa8 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_info      0x000000       0x5b20 build/default/production/Dutch_Dozen_V5.0.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x2ac
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x2ac build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_line       0x000000        0x912
+.debug_line       0x000000        0x8eb
  *(.debug_line)
- .debug_line      0x000000        0x912 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_line      0x000000        0x8eb build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_frame      0x000000        0x786
+.debug_frame      0x000000        0x7a2
  *(.debug_frame)
- .debug_frame     0x000000        0x786 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_frame     0x000000        0x7a2 build/default/production/Dutch_Dozen_V5.0.o
 
 .debug_str        0x000000        0x318
  *(.debug_str)
@@ -502,10 +504,10 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x56d
+                  0x000000        0x58c
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x56d build/default/production/Dutch_Dozen_V5.0.o
+                  0x000000        0x58c build/default/production/Dutch_Dozen_V5.0.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1231,8 +1233,8 @@ __c30_signature
 .const              0x875e       0x7608 load address 0x00075e  
  .const             0x875e       0x7608 build/default/production/Dutch_Dozen_V5.0.o
 
-.text             0x007d66       0x1cd6
- .text            0x007d66       0x1cd6 build/default/production/Dutch_Dozen_V5.0.o
+.text             0x007d66       0x1cb0
+ .text            0x007d66       0x1cb0 build/default/production/Dutch_Dozen_V5.0.o
                   0x007d66                  _ADCInit
                   0x007de0                  _DelayMs
                   0x007e32                  _DelayUs
@@ -1252,33 +1254,34 @@ __c30_signature
                   0x00875e                  _FillRec_ILI9341
                   0x008882                  _FillScreen_ILI9341
                   0x0088a0                  _SetAddrWindow_ILI9341
-                  0x0088f2                  _CharWrite_XY_ILI9341_16x25
-                  0x0089e2                  _LineWrite_XY_ILI9341_16x25
-                  0x008a48                  _WriteCommand_ILI9341
-                  0x008a80                  _Para_WriteCommand_ILI9341
-                  0x008ac8                  _WriteData_ILI9341
-                  0x008b00                  _Para_WriteData_ILI9341
-                  0x008b48                  _Arm
-                  0x008be6                  _Clear_SR
-                  0x008bfc                  _Encoder_Switch
-                  0x008cc4                  _Firing
-                  0x008cf2                  _Menu
-                  0x009198                  _Multi
-                  0x0091b2                  _Parse_PortB
-                  0x009202                  _Reset
-                  0x009226                  _Rotate
-                  0x009264                  _Rotory_Encoder
-                  0x009408                  _Shift
-                  0x009426                  _Single
-                  0x009438                  _DecimalInsert
-                  0x009442                  _Version
-                  0x0094c0                  _TimerInit
-                  0x0094f8                  _SPIInit
-                  0x009530                  _main
-                  0x0095de                  _Arm_Alert
-                  0x0097b2                  _Fire_Alert
-                  0x00996c                  _Latch_Test
-                  0x009972                  _SplashDisplay
+                  0x0088f2                  _Para_SetAddrWindow_ILI9341
+                  0x008944                  _CharWrite_XY_ILI9341_16x25
+                  0x008a34                  _LineWrite_XY_ILI9341_16x25
+                  0x008a9a                  _WriteCommand_ILI9341
+                  0x008ad2                  _Para_WriteCommand_ILI9341
+                  0x008b1a                  _WriteData_ILI9341
+                  0x008b52                  _Para_WriteData_ILI9341
+                  0x008b9a                  _Arm
+                  0x008c38                  _Clear_SR
+                  0x008c4e                  _Encoder_Switch
+                  0x008d16                  _Firing
+                  0x008d44                  _Menu
+                  0x0091ea                  _Multi
+                  0x009204                  _Parse_PortB
+                  0x009254                  _Reset
+                  0x009278                  _Rotate
+                  0x0092b6                  _Rotory_Encoder
+                  0x00945a                  _Shift
+                  0x009478                  _Single
+                  0x00948a                  _DecimalInsert
+                  0x009494                  _Version
+                  0x009512                  _TimerInit
+                  0x00954a                  _SPIInit
+                  0x009582                  _main
+                  0x0095b8                  _Arm_Alert
+                  0x00978c                  _Fire_Alert
+                  0x009946                  _Latch_Test
+                  0x00994c                  _SplashDisplay
 
-.dinit            0x009a3c         0x9a
- .dinit           0x009a3c         0x9a data_init
+.dinit            0x009a16         0x9a
+ .dinit           0x009a16         0x9a data_init

@@ -168,7 +168,24 @@ int main(int argc, char** argv) {
     // **********************************
     // *** Initialization TFT_ILI9341 *** 
     // **********************************
-    Initialize_TFT_ILI9341();
+
+
+    Initialize_TFT_ILI9341(); // ***test, remove comments when done.
+    Para_Initialize_TFT_ILI9341(); // ***testing, remove when done.
+
+
+
+
+
+    // Forever nothing loop for testing.
+
+    while (1) {
+        WriteCommand_ILI9341(ILI9341_DISPOFF);
+        DelayMs(1000);
+        WriteCommand_ILI9341(ILI9341_DISPON  );
+        DelayMs(1000);
+    }
+
 
     // **********************
     // *** Version Screen ***
@@ -365,7 +382,7 @@ int main(int argc, char** argv) {
 
     // *** Main endless program loop
     while (1) // Forever loop.
- {
+    {
         // Display and return the battery voltage
 
         Batt_Volt = Disp_Battery_Voltage();

@@ -162,6 +162,7 @@ void Para_Initialize_TFT_ILI9341(void);
 void LineWrite_XY_ILI9341_16x25(char *digit, int x, int line, int fore_colour,
         int back_colour);
 void SetAddrWindow_ILI9341(int X_Start, int Y_Start, int X_End, int Y_End);
+void Para_SetAddrWindow_ILI9341(int X_Start, int Y_Start, int X_End, int Y_End);
 void WriteCommand_ILI9341(unsigned char Command);
 void Para_WriteCommand_ILI9341(unsigned char Command);
 void WriteData_ILI9341(unsigned char Data);
@@ -498,6 +499,22 @@ void SetAddrWindow_ILI9341(int X_Start, int Y_Start, int X_End, int Y_End) {
     WriteData_ILI9341(Y_End); // YEND
 
     WriteCommand_ILI9341(ILI9341_RAMWR); // write to RAM
+}
+
+void Para_SetAddrWindow_ILI9341(int X_Start, int Y_Start, int X_End, int Y_End) {
+    Para_WriteCommand_ILI9341(ILI9341_CASET); // Column addr set (Horizontal, 480 Max.)
+    Para_WriteData_ILI9341(X_Start >> 8);
+    Para_WriteData_ILI9341(X_Start & 0xFF); // XSTART 
+    Para_WriteData_ILI9341(X_End >> 8);
+    Para_WriteData_ILI9341(X_End & 0xFF); // XEND
+
+    Para_WriteCommand_ILI9341(ILI9341_PASET); // Page addr set (vertical, 320 Max))
+    Para_WriteData_ILI9341(Y_Start >> 8);
+    Para_WriteData_ILI9341(Y_Start); // YSTART
+    Para_WriteData_ILI9341(Y_End >> 8);
+    Para_WriteData_ILI9341(Y_End); // YEND
+
+    Para_WriteCommand_ILI9341(ILI9341_RAMWR); // write to RAM
 }
 
 /*
