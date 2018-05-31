@@ -391,11 +391,11 @@ void PortInit(void) {
     _LATD6 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATD7 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATD8 = 0; // 0 = low(0v), 1 = high(+3.3V)
-    _LATD9 = 0; // 0 = low(0v), 1 = high(+3.3V)
+    _LATD9 = 1; // 0 = low(0v), 1 = high(+3.3V), 8bit display CS
     _LATD10 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATD11 = 0; // 0 = low(0v), 1 = high(+3.3V)
-    _LATD12 = 0; // 0 = low(0v), 1 = high(+3.3V)
-    _LATD13 = 0; // 0 = low(0v), 1 = high(+3.3V)
+    _LATD12 = 1; // 0 = low(0v), 1 = high(+3.3V), 8bit READ
+    _LATD13 = 1; // 0 = low(0v), 1 = high(+3.3V), 8bit display RES
     _LATD14 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATD15 = 0; // 0 = low(0v), 1 = high(+3.3V)
 
@@ -603,7 +603,7 @@ void PortInit(void) {
     //LATG = 0x00;   // initial port settings
 
     _LATG0 = 0; // 0 = low(0v), 1 = high(+3.3V)
-    _LATG1 = 0; // 0 = low(0v), 1 = high(+3.3V)
+    _LATG1 = 1; // 0 = low(0v), 1 = high(+3.3V), SPI diplay RST
     _LATG2 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATG3 = 0; // 0 = low(0v), 1 = high(+3.3V)
     // no _RG4
@@ -611,7 +611,7 @@ void PortInit(void) {
     _LATG6 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATG7 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATG8 = 0; // 0 = low(0v), 1 = high(+3.3V)
-    _LATG9 = 1; // 0 = low(0v), 1 = high(+3.3V)
+    _LATG9 = 1; // 0 = low(0v), 1 = high(+3.3V), SPI display CS=1.
     // no _RG10
     // no _RG11
     _LATG12 = 0; // 0 = low(0v), 1 = high(+3.3V)

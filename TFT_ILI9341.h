@@ -36,7 +36,7 @@
 #define DATA 1
 
 // #define statements for serial connection to the display.
-#define CS _LATG9            // Chip select for OLED - Serial Mode.
+#define CS _LATG9            // Chip select for OLED - Serial Mode, initialized as 1.
 #define RES _LATG1           // Reset for OLED - Serial Mode.
 #define DC _LATG0            // Data / Command for OLED (LATG0 for pictail) - Serial Mode.
 #define SCLK _LATG6          // Clock for OLED - Serial Mode.
@@ -46,11 +46,11 @@
 // #define statements for parallel connection to the display.
 // Note: D0 - D7 into the display corresponds to D1-D8 of the CPU respectively.
 
-#define Para_CS _LATD9        // Chip select for OLED - Parallel mode. 
+#define Para_CS _LATD9        // Chip select for OLED - Parallel mode, initialized as 1.
 #define Para_DC _LATD10       // Data / Command for OLED (LATG0 for pictail) - Parallel Mode.
 #define Para_WR _LATD11       // Write strobe - Parallel Mode.
 #define Para_RD _LATD12       // Read strobe - Parallel Mode.
-#define Para_RST _LATD13      // Reset for OLED - Parallel Mode.
+#define Para_RES _LATD13      // Reset for OLED - Parallel Mode, intialized as 1.
 
 #define ILI9341_TFTWIDTH  320
 #define ILI9341_TFTHEIGHT 240
@@ -152,6 +152,7 @@
 void CharWrite_XY_ILI9341_16x25(int digit, int x_start, int y_start,
         int fore_colour, int back_colour);
 void DrawPixel_ILI9341(int x, int y, int colour);
+void Para_DrawPixel_ILI9341(int x, int y, int colour);
 void FillRec_ILI9341(long int x, long int y, long int w, long int h,
         long int colour);
 void Para_FillRec_ILI9341(long int x, long int y, long int w, long int h,
@@ -297,9 +298,9 @@ void Initialize_TFT_ILI9341(void) {
 }
 
 void Para_Initialize_TFT_ILI9341(void) {
-    RES = 0; // Reset the TFT.
+    Para_RES = 0; // Reset the TFT.
     DelayMs(120);
-    RES = 1; // Take TFT out of reset.
+    Para_RES = 1; // Take TFT out of reset.
 
     Para_WriteCommand_ILI9341(ILI9341_SWRESET);
     DelayMs(10);
@@ -413,6 +414,7 @@ void Para_Initialize_TFT_ILI9341(void) {
     DelayMs(120);
     Para_WriteCommand_ILI9341(ILI9341_DISPON); //Display on 
     DelayMs(120);
+    
 }
 
 void DrawPixel_ILI9341(int x, int y, int colour) {
@@ -438,6 +440,56 @@ void DrawPixel_ILI9341(int x, int y, int colour) {
     SPI2BUF = colour_low;
     Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
     CS = 1; // deactivate ~CS.
+
+    IEC1bits.CNIE = 1; // enable CN ISR
+    IEC3bits.INT3IE = 1; // enable INT3 ISR
+    IEC3bits.INT4IE = 1; // enable INT4 ISR
+    IEC0bits.INT0IE = 1; // enable INT0 ISR
+}
+
+void Para_DrawPixel_ILI9341(int x, int y, int colour) {
+
+    int colour_hi;
+    int colour_low;
+
+    int old_Latch = 0; // Current setting of PortD.
+    int data_Mask = 0; // Data mask with rest of bits zero.
+    int mask = 0xFE01; // D1-D8 zeros, the rest ones.
+
+    if ((x < 0) || (x >= ILI9341_TFTWIDTH) || (y < 0) || (y >= ILI9341_TFTHEIGHT)) return;
+    Para_SetAddrWindow_ILI9341(x, y, x, y);
+
+    colour_hi = colour >> 8;
+    colour_low = colour;
+    IEC1bits.CNIE = 0; // disable CN ISR
+    IEC3bits.INT3IE = 0; // disable INT3 ISR
+    IEC3bits.INT4IE = 0; // disable INT4 ISR
+    IEC0bits.INT0IE = 0; // disable INT0 ISR
+    Nop(); // Added for interrupt disable timing.
+
+    Para_DC = DATA; // Write Command, leave low
+    Para_CS = 0; // Activate ~CS  
+    Para_WR = 0; // Start writing process, dump data on bus.
+
+    old_Latch = PORTD; // Read portD
+    old_Latch = (old_Latch & mask); // 'zero out' bit mask pattern.
+    data_Mask = (colour_hi << 1);
+
+    LATD = (old_Latch | data_Mask);
+    //SPI2BUF = colour_hi;
+    Nop(), Nop();
+    Para_WR = 1; // Latch data to display
+    data_Mask = 0;
+    old_Latch = (old_Latch & mask); // 'zero out' bit mask pattern.
+    data_Mask = (colour_low << 1);
+    Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
+
+
+    LATD = (old_Latch | data_Mask);
+    //SPI2BUF = colour_low;
+
+    Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
+    Para_CS = 1; // deactivate ~CS.
 
     IEC1bits.CNIE = 1; // enable CN ISR
     IEC3bits.INT3IE = 1; // enable INT3 ISR
@@ -524,7 +576,13 @@ void Para_FillRec_ILI9341(long int x, long int y, long int w, long int h, long i
             LATD = (old_Latch | data_Mask); // Mask in new data MSBits.
             Para_WR = 1; // Latch data on bus.
             // SPI2BUF = colour_hi;
+            data_Mask = 0;
+            old_Latch = (old_Latch & mask); // 'zero out' bit mask pattern.
+
             Nop(), Nop(), Nop();
+
+            Para_WR = 0;
+            Nop(), Nop();
             data_Mask = (colour_low << 1); // Shift data to bit position 1-8.
             LATD = (old_Latch | data_Mask); // Mask in new data MSBits.
             Para_WR = 1; // Latch data on bus.
@@ -717,29 +775,23 @@ void Para_WriteCommand_ILI9341(unsigned char Command) {
     IEC0bits.INT0IE = 0; // disable INT0 ISR
     Nop(); // Added for interrupt disable timing.
 
-
     Para_DC = COMMAND; // Write Command, leave low
-    //Original delay of 12 NOPs approx 1.5uS.
     Para_CS = 0; // Activate ~CS
     Para_WR = 0; // Start writing process, dump data on bus.
     //Original delay of 15 NOPs approx 1.9uS.
-    //SPI2BUF = Data;
     old_Latch = PORTD; // Read portD
     old_Latch = (old_Latch & mask); // 'zero out' bit mask pattern.
     data_Mask = (Command << 1); // Shift data to bit position 1-8.
     LATD = (old_Latch | data_Mask); // Mask in new data.
-    //_LATD1 = 0; //***testing 
     //Original delay of 23 NOPs approx 2.8uS.
     Para_WR = 1; // Latch data on bus.
-    Nop(); //, Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
-    //Nop(), Nop();
+    Nop(), Nop(), Nop(); //, Nop(), Nop(), Nop(), Nop(), Nop();
     Para_CS = 1; // deactivate ~CS.
-    //Para_DC = 0;//****test condition to force high to see on scope.
+    
     IEC1bits.CNIE = 1; // enable CN ISR
     IEC3bits.INT3IE = 1; // enable INT3 ISR
     IEC3bits.INT4IE = 1; // enable INT4 ISR
     IEC0bits.INT0IE = 1; // enable INT0 ISR
-
 }
 
 void WriteData_ILI9341(unsigned char Data) {
@@ -795,7 +847,7 @@ void Para_WriteData_ILI9341(unsigned char Data) {
     //_LATD1 = 0; //***testing 
     //Original delay of 23 NOPs approx 2.8uS.
     Para_WR = 1; // Latch data on bus.
-    Nop(); //, Nop(), Nop(), Nop(), Nop(), Nop(), Nop(), Nop();
+    Nop(), Nop(), Nop(); //, Nop(), Nop(), Nop(), Nop(), Nop();
     //Nop(), Nop();
     Para_CS = 1; // deactivate ~CS.
     //Para_DC = 0;//****test condition to force high to see on scope.

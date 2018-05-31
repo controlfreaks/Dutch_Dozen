@@ -172,18 +172,47 @@ int main(int argc, char** argv) {
 
     Initialize_TFT_ILI9341(); // ***test, remove comments when done.
     Para_Initialize_TFT_ILI9341(); // ***testing, remove when done.
+    
+    //WriteCommand_ILI9341(ILI9341_DISPON);
+    // Para_WriteCommand_ILI9341(ILI9341_DISPON);
+    
+            /*  DrawPixel_ILI9341(50, 51, ILI9341_WHITE);
+              DrawPixel_ILI9341(50, 50, ILI9341_WHITE);
+              DrawPixel_ILI9341(51, 50, ILI9341_WHITE);
+              DrawPixel_ILI9341(51, 51, ILI9341_WHITE);
 
-
-
-
-
-    // Forever nothing loop for testing.
-
+              DelayMs(2000);
+                Para_WriteCommand_ILI9341(ILI9341_DISPON);
+                DelayMs(1000);
+                Para_WriteCommand_ILI9341(ILI9341_DISPOFF);
+                DelayMs(1000);
+                Para_WriteCommand_ILI9341(ILI9341_DISPON);
+                DelayMs(1000);
+                Para_WriteCommand_ILI9341(ILI9341_DISPOFF);
+                DelayMs(1000);
+                Para_WriteCommand_ILI9341(ILI9341_DISPON);
+                DelayMs(1000);
+                Para_WriteCommand_ILI9341(ILI9341_DISPOFF);
+             */
+            // Forever nothing loop for testing.
+            //FillScreen_ILI9341(ILI9341_WHITE );
+            /* DrawPixel_ILI9341(50, 51, ILI9341_WHITE);
+             DrawPixel_ILI9341(50, 50, ILI9341_WHITE);
+             DrawPixel_ILI9341(51, 50, ILI9341_WHITE);
+             DrawPixel_ILI9341(51, 51, ILI9341_WHITE);
+             Para_DrawPixel_ILI9341(50, 51, ILI9341_WHITE);
+             Para_DrawPixel_ILI9341(50, 50, ILI9341_WHITE);
+             Para_DrawPixel_ILI9341(51, 50, ILI9341_WHITE);
+             Para_DrawPixel_ILI9341(51, 51, ILI9341_WHITE);
+             */
+            //Para_FillScreen_ILI9341(ILI9341_PURPLE );
     while (1) {
-        WriteCommand_ILI9341(ILI9341_DISPOFF);
-        DelayMs(1000);
-        WriteCommand_ILI9341(ILI9341_DISPON  );
-        DelayMs(1000);
+        //WriteCommand_ILI9341(ILI9341_DISPON);
+        //Para_WriteCommand_ILI9341(ILI9341_DISPON);
+        //DelayMs(1000);
+        //WriteCommand_ILI9341(ILI9341_DISPOFF);
+        // Para_WriteCommand_ILI9341(ILI9341_DISPOFF);
+        //DelayMs(1000);
     }
 
 
@@ -375,10 +404,10 @@ int main(int argc, char** argv) {
     Menu();
 
     //***** 8bit display testing ground****
-    while (1) {
-        Para_WriteData_ILI9341(0x01);
-    }
-
+    //while (1) {
+    //    Para_WriteData_ILI9341(0x01);
+    //
+    //*****************
 
     // *** Main endless program loop
     while (1) // Forever loop.
