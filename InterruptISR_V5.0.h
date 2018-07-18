@@ -441,9 +441,9 @@ void Menu(void) {
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
             if ((DoDown) || (DoBack) | (DoUp))
-                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 176, Line3, ILI9341_WHITE, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 176, Line4, ILI9341_WHITE, ILI9341_BLACK);
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
             break;
@@ -477,16 +477,16 @@ void Menu(void) {
             if (DoBack)
                 LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
             if ((DoDown || DoBack | DoUp))
-                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line3, ILI9341_BLACK, ILI9341_GREEN);
+                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_BLACK, ILI9341_GREEN);
             if (DoBack)
-                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 176, Line3, ILI9341_WHITE, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 176, Line4, ILI9341_WHITE, ILI9341_BLACK);
             if ((DoUp) || (DoBack))
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
             break;
 
         case 21: // Display Menu: M21.
             if (DoForward)
-                FillRec_ILI9341(0, 0, 480, 160, ILI9341_BLACK);
+                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK);// Changed for Line 4.
             if (DoForward)
                 LineWrite_XY_ILI9341_16x25("GALV Mode:", 0, Line0, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoForward) || (DoUp))
@@ -501,7 +501,7 @@ void Menu(void) {
             break;
 
         case 30: // Display Menu: M30.
-            LineWrite_XY_ILI9341_16x25("GALV:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
+            LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
             LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_BLACK, ILI9341_GREEN);
             break;
 
