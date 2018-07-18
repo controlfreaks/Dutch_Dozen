@@ -16,7 +16,7 @@
       <itemPath>PortInit_V5.0.h</itemPath>
       <itemPath>SPIInit_V5.0.h</itemPath>
       <itemPath>TimerInit_V5.0.h</itemPath>
-      <itemPath>../../../../Program Files (x86)/Microchip/xc16/v1.33/support/PIC24F/h/p24FJ128GA010.h</itemPath>
+      <itemPath>../../../../../../Program Files (x86)/Microchip/xc16/v1.34/support/PIC24F/h/p24FJ128GA010.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -38,6 +38,7 @@
     <Elem>.</Elem>
     <Elem>../../../../Program Files (x86)/Microchip/xc16/v1.31/support/PIC24F/h</Elem>
     <Elem>../../../../Program Files (x86)/Microchip/xc16/v1.33/support/PIC24F/h</Elem>
+    <Elem>../../../../../../Program Files (x86)/Microchip/xc16/v1.34/support/PIC24F/h</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -210,6 +211,7 @@
         <property key="UART 1" value="true"/>
         <property key="UART 2" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

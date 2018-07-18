@@ -39,6 +39,9 @@
     unsigned FLG15:1;
   }FLAGBITS_A = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
   
+#define ON 1   // Generic ON value for flags.
+#define OFF 0  // Generic OFF value for flags.
+  
 #define FIRE_FLG FLAGBITS_A.FLG0  // 1 when in a firing condtion, 0 when not. 
 #define FIRE_HIGH_FLG FLAGBITS_A.FLG1
 #define FIRE_FIRST_FLG FLAGBITS_A.FLG2 // denotes the first time in a firing condition
@@ -81,7 +84,7 @@
 #define BUTT_PRESS_FLG FLAGBITS_B.FLG19
 #define THREE_DIGIT_FLG  FLAGBITS_B.FLG20    // Add space  < 2 digits, flag = 1 when 3 digits
 #define CHANNEL_FLG  FLAGBITS_B.FLG21    // 0 = reset at power down, 1 = save channel condition.
-#define FLAG22_FLG  FLAGBITS_B.FLG22    //
+#define MEMORY_MODE_FLG  FLAGBITS_B.FLG22    // Menory mode on/off. 1 = ON, 0 = OFF.
 #define FLAG23_FLG  FLAGBITS_B.FLG23    //  
 #define FLAG24_FLG  FLAGBITS_B.FLG24
 #define FLAG25_FLG  FLAGBITS_B.FLG25

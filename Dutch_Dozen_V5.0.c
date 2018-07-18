@@ -77,6 +77,8 @@
 #define CHG_BATT_COM 660    // Level for <CHARGE COMPLETE> message.
 #define LOW_BATT 580    // Level for <LOW BATTERY> message.(10.0V)
 #define CHG_BATT 525    // Level for <CHARGE BATT> message.(9.0V)
+#define NOT_FIRST_TIMER 0x1235  // Code for first time through with EEPROM.
+
 
 
 // This functions displays the battery voltage and returns it.
@@ -137,6 +139,9 @@ int main(int argc, char** argv) {
     // *** Initialize Constants ***
     // ****************************
 
+    // This flag determines original state of the memory flag.
+    MEMORY_MODE_FLG = OFF; // Initially not in mode.
+
     // This flag is set because multi-mode delay starts @ 200 (3 digits).
     THREE_DIGIT_FLG = 1;
 
@@ -183,6 +188,7 @@ int main(int argc, char** argv) {
     // *****************************
     // *** Display splash screen ***
     // *****************************
+
     SplashDisplay();
     FillScreen_ILI9341(ILI9341_BLACK);
 
@@ -197,13 +203,17 @@ int main(int argc, char** argv) {
     // **********************************
     // Fill EEPROM with initial settings, (running display, delay = 200ms)
     // This is only done once, on the 1st programming of the board.
-    while ((E_Read(EInit_FLG)) != 0x1235) {
+
+    E_Write(EMemory_Mode, OFF); // Initialize to reset condition.
+
+    while ((E_Read(EInit_FLG)) != NOT_FIRST_TIMER) { // Number which identifies not 1st time through.
         E_Write(EDelay_Count, ARRAY_MID); // Initialize memory location. (24)
         E_Write(EDelay_Place, 85); //Initialize memory location. (3 digits)
         E_Write(EMenu, 40); //Initialize memory location. (running display)
         E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); //Initialize memory location.
         E_Write(EChannel, KLUNK_CH); // Initialize to reset condition.
-        E_Write(EInit_FLG, 0x1235); // set flag so above while() only executes once.
+        E_Write(EMemory_Mode, OFF); // Initialize to reset condition.
+        E_Write(EInit_FLG, NOT_FIRST_TIMER); // set flag so above while() only executes once.
     }
 
     // *****************************
@@ -240,13 +250,15 @@ int main(int argc, char** argv) {
     // *** Set FIRE Mode and GALV Mode setting ***
     // ***Next line is commented out because single/multi is now recovered from
     // memory.
-    SM_FLG = 0; // Set to single mode (1) for intial setup.
+    SM_FLG = 1; // Set to single mode (1) for intial setup.
     GALV_FLG = 0; // Set no Galv off.
 
 
 
 
     /* *** MEMORY RECOVERY SECTION****
+     * ** Note this next section only entered if the MEMORY_MODE_FLG = 1, i.e.
+     * Memory mode on. Otherwise defaults to single mode, reset condition.
      * This section recovers the four sections being stores in memory:
      * 1. single/multi mode (SM_FLG: 0 = multi mode, 1 =  single mode) <EMode>
      * 2. multi mode delay <EDelay>
@@ -265,62 +277,87 @@ int main(int argc, char** argv) {
      * M40  -   RUNNING menu.
      * M70  -   ARM conflict warning.
      */
+    MEMORY_MODE_FLG = E_Read(EMemory_Mode);
+    if (MEMORY_MODE_FLG) {
 
-    // ***************************************
-    // *** Mode Delay **** MEMORY RECOVERY ***
-    // ***************************************
+        // ***************************************
+        // *** Mode Delay **** MEMORY RECOVERY ***
+        // ***************************************
 
-    Array_Count = E_Read(EDelay_Count);
-    place = E_Read(EDelay_Place);
-    THREE_DIGIT_FLG = E_Read(EDelay_3D_FLG);
+        Array_Count = E_Read(EDelay_Count);
+        place = E_Read(EDelay_Place);
+        THREE_DIGIT_FLG = E_Read(EDelay_3D_FLG);
 
-    // ************************************
-    // *** Channel **** MEMORY RECOVERY ***
-    // ************************************
-    // SRCLK controls the output buffers of '245.
-    // SR_LATCH shifts the shift register.
-    Channel_count = E_Read(EChannel); // Retrieve stored channel value
-    Count = (Channel_count);
-    // Test to see if channel advancing is necessary.
-    if (Channel_count != KLUNK_CH) { // Non reset condition.
-        FIRE_FIRST_FLG = 1;
-        RESET_LED = 0;
-        CHANNEL_FLG = 1; //  Non-reset condition, used in Rotate(), determines bit set for shifting.
-        while ((KLUNK_CH - Channel_count) >= 1) {
-            Nop();
+        // ************************************
+        // *** Channel **** MEMORY RECOVERY ***
+        // ************************************
+        // SRCLK controls the output buffers of '245.
+        // SR_LATCH shifts the shift register.
+        Channel_count = E_Read(EChannel); // Retrieve stored channel value
+        Count = (Channel_count);
+        // Test to see if channel advancing is necessary.
+        if (Channel_count != KLUNK_CH) { // Non reset condition.
+            FIRE_FIRST_FLG = 1;
+            RESET_LED = 0;
+            CHANNEL_FLG = 1; //  Non-reset condition, used in Rotate(), determines bit set for shifting.
+            while ((KLUNK_CH - Channel_count) >= 1) {
+                Nop();
+                SRCLK = 0;
+                SERIAL = 0;
+                if (FIRE_FIRST_FLG == 1)
+                    SERIAL = 1;
+
+                SRCLK = 1; // Shift pulse to nest channel/ activate '245.
+                Nop();
+
+                SR_LATCH = 1; // Output to SR.
+                Nop(); // Timing delay for SR.
+                SR_LATCH = 0; // Kill latch pulse.
+                Nop();
+                FIRE_FIRST_FLG = 0; // Clear FIRE_FIRST flag.
+                Channel_count++;
+            }
+            FIRE_FIRST_FLG = 1;
             SRCLK = 0;
-            SERIAL = 0;
-            if (FIRE_FIRST_FLG == 1)
-                SERIAL = 1;
-
-            SRCLK = 1; // Shift pulse to nest channel/ activate '245.
-            Nop();
-
-            SR_LATCH = 1; // Output to SR.
-            Nop(); // Timing delay for SR.
-            SR_LATCH = 0; // Kill latch pulse.
-            Nop();
-            FIRE_FIRST_FLG = 0; // Clear FIRE_FIRST flag.
-            Channel_count++;
+        } else {
+            Reset(); // Reset if not in channel recovery mode.
         }
-        FIRE_FIRST_FLG = 1;
-        SRCLK = 0;
-    } else {
-        Reset(); // Reset if not in channel recovery mode.
-    }
 
+        // Enable the output of the shift register (active low).
+        // Initially port F3 set to 1 in 'PortInit' header.
+       // SHIFT_REG_EN = 0;
+
+        // ****************************************
+        //  *** Single/Mode *** MEMORY RECOVERY ***
+        // ****************************************
+        // Make sure this is the last test before main.
+        SM_FLG = E_Read(EMode);
+        // if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
+        //    Multi();
+        //   }
+    } else { // Revert to default mode
+        // E_Write(EDelay_Count, ARRAY_MID); // Initialize memory location. (24)
+        Array_Count = ARRAY_MID;
+        //E_Write(EDelay_Place, 85); //Initialize memory location. (3 digits)
+        place = 85;
+        //E_Write(EMenu, 40); //Initialize memory location. (running display)
+        MenuNo = 40;
+        // E_Write(EDelay_3D_FLG, THREE_DIGIT_FLG); //Initialize memory location.
+        THREE_DIGIT_FLG = 1;
+        // SM_FLG = 1; // Return to Single mode
+        //E_Write(EChannel, KLUNK_CH); // Initialize to reset condition.
+        Count = KLUNK_CH;
+        Reset();
+    }
+    
     // Enable the output of the shift register (active low).
     // Initially port F3 set to 1 in 'PortInit' header.
     SHIFT_REG_EN = 0;
-
-    // ****************************************
-    //  *** Single/Mode *** MEMORY RECOVERY ***
-    // ****************************************
-    // Make sure this is the last test before main.
-    SM_FLG = E_Read(EMode);
+    
     if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
         Multi();
     }
+
     _ADON = 1; // Turn A/C on
 
 
@@ -574,6 +611,7 @@ void Latch_Test(void) {
 }
 
 void SplashDisplay(void) {
+
     long int count = 0; // count for the logo array.
     int row = 0; // Display rows, 58-125 (68 total).
     int column = 0; // Display columns, 0-319 (320 total).

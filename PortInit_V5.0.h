@@ -531,7 +531,7 @@ void PortInit(void) {
     _LATF3 = 1; // 0 = low(0v), 1 = high(+3.3V)
     _LATF4 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATF5 = 0; // 0 = low(0v), 1 = high(+3.3V)
-    //_LATF6 = 0;        // 0 = low(0v), 1 = high(+3.3V)
+    _LATF6 = 0;        // 0 = low(0v), 1 = high(+3.3V)
     _LATF7 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATF8 = 0; // 0 = low(0v), 1 = high(+3.3V)
     // no _RF9

@@ -52,7 +52,9 @@ int EInit_FLG = 0x03; // EEPROM initialization flag. 0x0000 = 1st time through,
 //                          0x1234 = ignore initialization.
 int EDelay_3D_FLG = 0x04;  // EEPROM memory location of # of digits.
 int EDelay_Place = 0x05;    // EEPROM memory location place justification.
+int EMemory_Mode = 0x06;// EEPROM location for Memory mode status (enabled/disabled).
 int EChannel = 0x08; // EEPROM memory location for Channel setting.
+
 // Function Definitions here.
 
 void EEPROM_Setup() {
