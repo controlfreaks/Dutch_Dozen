@@ -79,6 +79,7 @@ void Arm(void);
 void Encoder_Switch(void);
 void Clear_SR(void);
 void Firing(void);
+void Memory_Recovery(void); // When Powered up, restores from EEPROM.
 void Menu(void);
 void Multi(void);
 void Parse_PortB(void);
@@ -361,6 +362,9 @@ void Encoder_Switch(void) {
         DoBack = 1;
         MEMORY_MODE_FLG = ON; // Set MEM flag.
         E_Write(EMemory_Mode, ON); // Save Memory Condition.
+        Reset();
+        SM_FLG = 1;
+        Single();
         Menu();
     }
     
@@ -446,6 +450,68 @@ void Firing(void) {
         Nop(); // relays off.
     }
 
+}
+
+
+void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
+ 
+    int Channel_count = 0; // Local channel count var. Set to RESET condition.
+
+    // ***************************************
+    // *** Mode Delay **** MEMORY RECOVERY ***
+    // ***************************************
+
+    Array_Count = E_Read(EDelay_Count);
+    place = E_Read(EDelay_Place);
+    THREE_DIGIT_FLG = E_Read(EDelay_3D_FLG);
+
+    // ************************************
+    // *** Channel **** MEMORY RECOVERY ***
+    // ************************************
+    // SRCLK controls the output buffers of '245.
+    // SR_LATCH shifts the shift register.
+    Channel_count = E_Read(EChannel); // Retrieve stored channel value
+    Count = (Channel_count);
+    // Test to see if channel advancing is necessary.
+    if (Channel_count != KLUNK_CH) { // Non reset condition.
+        FIRE_FIRST_FLG = 1;
+        RESET_LED = 0;
+        CHANNEL_FLG = 1; //  Non-reset condition, used in Rotate(), determines bit set for shifting.
+        while ((KLUNK_CH - Channel_count) >= 1) {
+            Nop();
+            SRCLK = 0;
+            SERIAL = 0;
+            if (FIRE_FIRST_FLG == 1)
+                SERIAL = 1;
+
+            SRCLK = 1; // Shift pulse to nest channel/ activate '245.
+            Nop();
+
+            SR_LATCH = 1; // Output to SR.
+            Nop(); // Timing delay for SR.
+            SR_LATCH = 0; // Kill latch pulse.
+            Nop();
+            FIRE_FIRST_FLG = 0; // Clear FIRE_FIRST flag.
+            Channel_count++;
+        }
+        FIRE_FIRST_FLG = 1;
+        SRCLK = 0;
+    } else {
+        Reset(); // Reset if not in channel recovery mode.
+    }
+
+    // Enable the output of the shift register (active low).
+    // Initially port F3 set to 1 in 'PortInit' header.
+     SHIFT_REG_EN = 0;
+
+    // ****************************************
+    //  *** Single/Mode *** MEMORY RECOVERY ***
+    // ****************************************
+    // Make sure this is the last test before main.
+    SM_FLG = E_Read(EMode);
+     if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
+        Multi();
+       }
 }
 
 // This function changes the menu displayed depending on the MenuNo variable.
