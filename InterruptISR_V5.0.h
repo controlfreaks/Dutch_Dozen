@@ -78,6 +78,7 @@ void __attribute__((interrupt)) _T4Interrupt(void);
 void Arm(void);
 void Encoder_Switch(void);
 void Clear_SR(void);
+void Current_Condition(void); // Store current conditions in EEPROM.
 void Firing(void);
 void Memory_Recovery(void); // When Powered up, restores from EEPROM.
 void Menu(void);
@@ -302,12 +303,17 @@ void Clear_SR(void) {
     Nop();
 }
 
+void Current_Condition(void) {
+    E_Write(EMode, SM_FLG); // Save current sm mode value.
+    E_Write(EChannel, Count); // save channel position.
+}
+
 void Encoder_Switch(void) {
     // This disables the encoder button while the encoder rotation is running.
     // Change from M10 to M11.
     if (MenuNo == 10) {
         MenuNo = 11;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         DoDown = 0;
         DoForward = 1;
         DoUp = 0;
@@ -316,7 +322,7 @@ void Encoder_Switch(void) {
         // This puts klunker into SINGLE mode.
     else if (MenuNo == 11) {
         MenuNo = 10;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         DoForward = 0;
         DoDown = 0;
         DoUp = 0;
@@ -327,13 +333,13 @@ void Encoder_Switch(void) {
         // This puts klunker into MULTI mode.
     else if (MenuNo == 12) {
         MenuNo = 10;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         DoUp = 0;
         DoBack = 1;
         Multi();
         Menu();
     }// Change from M50 to M51
-    
+
     else if (MenuNo == 50) {
         MenuNo = 51;
         DoDown = 0;
@@ -351,8 +357,7 @@ void Encoder_Switch(void) {
         MEMORY_MODE_FLG = OFF; // Set MEM flag.
         E_Write(EMemory_Mode, OFF); // Save Memory Condition.
         Menu();
-    }
-    // Change from M52 back to M50
+    }// Change from M52 back to M50
     else if (MenuNo == 52) {
         MenuNo = 50;
         //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
@@ -362,17 +367,18 @@ void Encoder_Switch(void) {
         DoBack = 1;
         MEMORY_MODE_FLG = ON; // Set MEM flag.
         E_Write(EMemory_Mode, ON); // Save Memory Condition.
-        Reset();
-        SM_FLG = 1;
-        Single();
+        Current_Condition();
+        Memory_Recovery();
+        //Reset();
+        //SM_FLG = 1;
+        //Single();
+        Memory_Recovery();
         Menu();
-    }
-    
-        // Change from M21 back to M20.
+    }        // Change from M21 back to M20.
         // This action also turns GALV function off.
     else if (MenuNo == 21) {
         MenuNo = 20;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         DoForward = 0;
         DoDown = 0;
         DoUp = 0;
@@ -388,12 +394,12 @@ void Encoder_Switch(void) {
         if (ARM_FLG == 1) {
             ARM_GLV_FLG = 1;
             MenuNo = 70; // Menu 70 is the ARM/GALV conflict message.
-            E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+            //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
             Menu();
         }
         Reset(); // reset before entering GALV mode.
         MenuNo = 22; // ** For full function uncomment Menu() and Change
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         // MenuNo = 21 instead of MenuNo = 22.
 
         GALV_FLG = 1; // Set GALV flag.
@@ -401,7 +407,7 @@ void Encoder_Switch(void) {
     }// Change from M20 to M21.
     else if (MenuNo == 20) {
         MenuNo = 21;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         DoDown = 0;
         DoUp = 0;
         DoForward = 1;
@@ -409,7 +415,7 @@ void Encoder_Switch(void) {
     }// Change from M30 to Running Display
     else if (MenuNo == 30) {
         MenuNo = 40;
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         VER_FLG = 0;
         MENU_FLG = 0; // leaving MENU mode (OK to fire).
         DoForward = 1; // Do not skip ClearOLED().
@@ -419,7 +425,7 @@ void Encoder_Switch(void) {
     else if (MenuNo == 40) {
         MENU_FLG = 1; // entering MENU mode (Not OK to fire).
         MenuNo = 10; // Enter menu in M10 screen.
-        E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         // Do not skip ClearOLED().
         //IEC0bits.AD1IE = 0; // disable A/D Conversion Done interrupt
         Menu();
@@ -452,9 +458,8 @@ void Firing(void) {
 
 }
 
-
 void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
- 
+
     int Channel_count = 0; // Local channel count var. Set to RESET condition.
 
     // ***************************************
@@ -470,6 +475,19 @@ void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
     // ************************************
     // SRCLK controls the output buffers of '245.
     // SR_LATCH shifts the shift register.
+    
+    
+    // Initialize Shift Register.
+    //SERIAL = 0;
+   // SRCLK = 0;
+    //SR_LATCH = 0;
+    SR_CLEAR = 0; // Clear shift register.
+    SR_CLEAR = 1;// active low so a 1 is disabled
+
+    // Disable the output of the shift register (active low).
+    // Initially port F3 set to 1 in 'PortInit' header.
+    SHIFT_REG_EN = 1;
+
     Channel_count = E_Read(EChannel); // Retrieve stored channel value
     Count = (Channel_count);
     // Test to see if channel advancing is necessary.
@@ -497,21 +515,21 @@ void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
         FIRE_FIRST_FLG = 1;
         SRCLK = 0;
     } else {
-        Reset(); // Reset if not in channel recovery mode.
-    }
+     Reset(); // Reset if not in channel recovery mode.
+     }
 
     // Enable the output of the shift register (active low).
     // Initially port F3 set to 1 in 'PortInit' header.
-     SHIFT_REG_EN = 0;
+    SHIFT_REG_EN = 0;
 
     // ****************************************
     //  *** Single/Mode *** MEMORY RECOVERY ***
     // ****************************************
     // Make sure this is the last test before main.
     SM_FLG = E_Read(EMode);
-     if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
+    if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
         Multi();
-       }
+    }
 }
 
 // This function changes the menu displayed depending on the MenuNo variable.
@@ -893,8 +911,7 @@ void Rotory_Encoder(void) {
         else if (MenuNo == 51) {
             MenuNo = 52;
             Menu();
-        }
-        // Menu 21 to 22 (CCW)
+        }// Menu 21 to 22 (CCW)
         else if (MenuNo == 21) {
             MenuNo = 22;
             Menu();
@@ -945,9 +962,7 @@ void Rotory_Encoder(void) {
             DoDown = 0;
             DoUp = 1;
             Menu();
-        }
-        
-        // Menu 22 to 21 (CCW)
+        }            // Menu 22 to 21 (CCW)
         else if (MenuNo == 22) {
             // The disables the rotary encode during ARM/GLV conflict.
             if (ARM_GLV_FLG == 0) {
