@@ -331,7 +331,40 @@ void Encoder_Switch(void) {
         DoBack = 1;
         Multi();
         Menu();
-    }// Change from M21 back to M20.
+    }// Change from M50 to M51
+    
+    else if (MenuNo == 50) {
+        MenuNo = 51;
+        DoDown = 0;
+        DoForward = 1;
+        DoUp = 0;
+        Menu();
+    }// Change from M51 back to M50
+    else if (MenuNo == 51) {
+        MenuNo = 50;
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        DoForward = 0;
+        DoDown = 0;
+        DoUp = 0;
+        DoBack = 1;
+        MEMORY_MODE_FLG = OFF; // Set MEM flag.
+        E_Write(EMemory_Mode, OFF); // Save Memory Condition.
+        Menu();
+    }
+    // Change from M52 back to M50
+    else if (MenuNo == 52) {
+        MenuNo = 50;
+        //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
+        DoForward = 0;
+        DoDown = 0;
+        DoUp = 0;
+        DoBack = 1;
+        MEMORY_MODE_FLG = ON; // Set MEM flag.
+        E_Write(EMemory_Mode, ON); // Save Memory Condition.
+        Menu();
+    }
+    
+        // Change from M21 back to M20.
         // This action also turns GALV function off.
     else if (MenuNo == 21) {
         MenuNo = 20;
@@ -790,8 +823,12 @@ void Rotory_Encoder(void) {
             DoBack = 0;
             Menu();
             // Skip Next ClearOLED().
-        }// Menu 21 to 22 (CCW)
-
+        }// Menu 51 to 22 (CCW)
+        else if (MenuNo == 51) {
+            MenuNo = 52;
+            Menu();
+        }
+        // Menu 21 to 22 (CCW)
         else if (MenuNo == 21) {
             MenuNo = 22;
             Menu();
@@ -835,7 +872,16 @@ void Rotory_Encoder(void) {
             DoDown = 0;
             DoUp = 1;
             Menu();
-        }// Menu 22 to 21 (CCW)
+        }// Menu 52 to 51 (CW)
+        else if (MenuNo == 52) {
+            MenuNo = 51;
+            DoForward = 0;
+            DoDown = 0;
+            DoUp = 1;
+            Menu();
+        }
+        
+        // Menu 22 to 21 (CCW)
         else if (MenuNo == 22) {
             // The disables the rotary encode during ARM/GLV conflict.
             if (ARM_GLV_FLG == 0) {
