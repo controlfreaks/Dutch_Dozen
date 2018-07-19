@@ -143,6 +143,7 @@ int Array_DelayHex [] = {
 // Array pointers for the mode choices in the menu system
 char *FireModePt [] = {"-MULTI-", "-SINGLE-"};
 char *GalvStatePt [] = {"-OFF-", "-ON-"};
+char *MemStatePt [] = {"-OFF-", "-ON-"};
 
 // Pointer for the middle of the mS array.
 
@@ -263,7 +264,7 @@ void __attribute__((interrupt, auto_psv)) _T4Interrupt(void) {
 // ***************************************************************************
 
 void Arm(void) {
-   // _CNARM = 0;
+    // _CNARM = 0;
     if (ARM_SW == 1) { // If the ARM switch is activated:
         ARM_FLG = 1; // SET the ARM flag.
         ARM_LED = 1; // SET the ARM LED.
@@ -389,7 +390,7 @@ void Encoder_Switch(void) {
 }
 
 void Firing(void) {
-   // _CNFIRE = 0; // Clear FIRE EVENT indicator.
+    // _CNFIRE = 0; // Clear FIRE EVENT indicator.
     if (FIRE_SW == 1) // SM=0 - multi, SM=1 - single
     {
         RESET_LED = 0; // Clear RESET_LED;
@@ -434,16 +435,26 @@ void Menu(void) {
         case 10: // Display Menu: M10.
             if ((DoDown) || (DoBack))
                 FillRec_ILI9341(0, 0, 480, 176, ILI9341_BLACK);
+
+            if (DoUp)// Do first if going up menu.
+                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoDown) || (DoBack) | (DoUp))
                 LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_BLACK, ILI9341_GREEN);
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
+
+            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
+            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
+
+
             if ((DoDown) || (DoBack) | (DoUp))
                 LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 176, Line4, ILI9341_WHITE, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
             break;
@@ -451,7 +462,7 @@ void Menu(void) {
         case 11: // Display Menu: M11.
             // eliminates blanking effects from ClearOLED().
             if (DoForward)
-                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK);// increased to cover Line5
+                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // increased to cover Line5
             if (DoForward)
                 LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line0, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoForward) || (DoUp))
@@ -472,21 +483,32 @@ void Menu(void) {
                 FillRec_ILI9341(0, 0, 480, 176, ILI9341_BLACK);
             if (DoBack)
                 LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
+
+            if (DoUp)// Print GALV first is moving up menu.
+                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_BLACK, ILI9341_GREEN);
+
             if ((DoDown || DoBack))
                 LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_GREEN, ILI9341_BLACK);
             if (DoBack)
                 LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
-            if ((DoDown || DoBack | DoUp))
+
+            if ((DoDown || DoBack))
+                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
+            if (DoBack)
+                LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
+            if (DoUp)// Do first if going up menu.
+                LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
+            if (DoDown || DoBack)
                 LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_BLACK, ILI9341_GREEN);
             if (DoBack)
-                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 176, Line4, ILI9341_WHITE, ILI9341_BLACK);
-            if ((DoUp) || (DoBack))
+                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
+            if (DoBack)
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
             break;
 
         case 21: // Display Menu: M21.
             if (DoForward)
-                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK);// Changed for Line 4.
+                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // Changed for Line 4.
             if (DoForward)
                 LineWrite_XY_ILI9341_16x25("GALV Mode:", 0, Line0, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoForward) || (DoUp))
@@ -539,6 +561,52 @@ void Menu(void) {
             LineWrite_XY_ILI9341_16x25("V", 302, Line6, ILI9341_CYAN, ILI9341_BLACK);
 
             break;
+        case 50: // Displaying menu M50
+            if (DoBack)
+                FillRec_ILI9341(0, 0, 480, 176, ILI9341_BLACK);
+            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
+
+            if (DoUp)// Do first if going up menu.
+                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
+            if ((DoDown) || (DoBack) | (DoUp))
+
+                LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_GREEN, ILI9341_BLACK);
+            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
+
+            if ((DoDown) || (DoBack) | DoUp)
+                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_BLACK, ILI9341_GREEN);
+            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
+
+
+            if ((DoDown) || (DoBack) | (DoUp))
+                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
+            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
+            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
+
+            break;
+
+        case 51: // Display Menu: M51.
+            if (DoForward)
+                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // Changed for Line 4.
+            if (DoForward)
+                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line0, ILI9341_GREEN, ILI9341_BLACK);
+            if ((DoForward) || (DoUp))
+                LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_BLACK, ILI9341_WHITE);
+            if ((DoForward) || (DoUp))
+                LineWrite_XY_ILI9341_16x25("ON", 0, Line3, ILI9341_WHITE, ILI9341_BLACK);
+            break;
+
+
+        case 52: // Display Menu: M52.
+            LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
+            LineWrite_XY_ILI9341_16x25("ON", 0, Line3, ILI9341_BLACK, ILI9341_WHITE);
+            break;
+
 
         case 70: // case of trying to GALV with the ARM switch on.
             LineWrite_XY_ILI9341_16x25("  *** CONFLICT ***", 18, Line4, ILI9341_BLACK, ILI9341_RED);
@@ -705,19 +773,31 @@ void Rotory_Encoder(void) {
             MenuNo = 12;
             Menu();
         }// Menu 10 to 20 (CCW)
+
         else if (MenuNo == 10) {
-            MenuNo = 20;
+            MenuNo = 50; // Changed from MenuNo = 20.
             DoDown = 1;
             DoUp = 0;
             DoBack = 0;
             Menu();
             // Skip Next ClearOLED().
 
+        }// Menu 51 to 52 (CCW)
+        else if (MenuNo == 50) {
+            MenuNo = 20; // Changed from MenuNo = 20.
+            DoDown = 1;
+            DoUp = 0;
+            DoBack = 0;
+            Menu();
+            // Skip Next ClearOLED().
         }// Menu 21 to 22 (CCW)
+
         else if (MenuNo == 21) {
             MenuNo = 22;
             Menu();
         }// Menu 20 to 30 (CCW)
+
+
         else if (MenuNo == 20) {
             MenuNo = 30;
             // Skip Next ClearOLED().
@@ -733,16 +813,23 @@ void Rotory_Encoder(void) {
             DoDown = 0;
             DoBack = 0; // Skip Next ClearOLED().
             Menu();
-        }// Menu 20 to 10 (CW)
+        }// Menu 20 to 50 (CW)
         else if (MenuNo == 20) {
+            MenuNo = 50;
+            DoUp = 1;
+            DoDown = 0;
+            DoBack = 0;
+            Menu();
+
+        }// Menu 50 to 10 (CW)
+        else if (MenuNo == 50) {
             MenuNo = 10;
             DoUp = 1;
             DoDown = 0;
             DoBack = 0;
             Menu();
 
-        }
-        else if (MenuNo == 12) {
+        } else if (MenuNo == 12) {
             MenuNo = 11;
             DoForward = 0;
             DoDown = 0;
@@ -792,13 +879,13 @@ void Single(void) {
     _LATD0 = 0; // turn of testing LED.
 }
 
-
 char *DecimalInsert(char *buf) {
 
     return buf;
 }
 
 // Fill this out for each klunker programmed.
+
 void Version(void) {
 
     FillScreen_ILI9341(ILI9341_BLACK);
