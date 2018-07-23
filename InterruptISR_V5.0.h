@@ -401,7 +401,8 @@ void Encoder_Switch(void) {
         MenuNo = 22; // ** For full function uncomment Menu() and Change
         //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         // MenuNo = 21 instead of MenuNo = 22.
-
+        LineWrite_XY_ILI9341_16x25("ON ", 0, Line3, ILI9341_BLACK, ILI9341_BLUE);
+        Box_ILI9341(0, Line3, 55, 30, ILI9341_WHITE); // BOX <ON>.
         GALV_FLG = 1; // Set GALV flag.
         GALV_OUT = 1; // Turn GALV function and LED on.
     }// Change from M20 to M21.
@@ -570,51 +571,26 @@ void Menu(void) {
                 Box_ILI9341(0, (Line3), 150, 30, ILI9341_BLACK); // UnBox <MEM MODE:>.
                 Box_ILI9341(0, (Line2), 150, 30, ILI9341_WHITE); // BOX <FIRE MODE:>.
             }
-/*
-            if (DoUp)// Do first if going up menu.
-                Box_ILI9341(0, (Line3), 150, 30, ILI9341_BLACK); // Blank out 'MEM' box.
-            //LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
-
-            if ((DoDown) || (DoBack) | (DoUp))
-                LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_GREEN, ILI9341_BLACK);
-            Box_ILI9341(0, (Line2), 150, 30, ILI9341_WHITE); // Box <FIRE Mode:>
-            if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
-
-            if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
-
-
-            if ((DoDown) || (DoBack) | (DoUp))
-                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
-                LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
-  */
             break;
 
         case 11: // Display Menu: M11.
-            // eliminates blanking effects from ClearOLED().
-            if (DoForward)
-                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // increased to cover Line5
-            if (DoForward)
+            if (DoForward) {// Menu M11 from M10 or M12 create menu for first time
+                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // increased to cover Line5         
                 LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line0, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoForward) || (DoUp))
-                LineWrite_XY_ILI9341_16x25("SINGLE", 0, Line2, ILI9341_BLACK, ILI9341_WHITE);
-            if ((DoForward) || (DoUp))
+                LineWrite_XY_ILI9341_16x25("SINGLE", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
+                Box_ILI9341(0, Line2, 100, 30, ILI9341_WHITE); // BOX <SINGLE>.
                 LineWrite_XY_ILI9341_16x25("MULTI", 0, Line3, ILI9341_WHITE, ILI9341_BLACK);
+            }
 
+            if (DoUp) {// Menu M12 to M11, unBOX <MULTI>, BOX <SINGLE>.
+                Box_ILI9341(0, Line3, 100, 30, ILI9341_BLACK); // UnBOX <MULTI>.
+                Box_ILI9341(0, Line2, 100, 30, ILI9341_WHITE); // BOX <SINGLE>.
+            }
             break;
 
-        case 12: // Display Menu: M12.
-            LineWrite_XY_ILI9341_16x25("SINGLE", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
-            LineWrite_XY_ILI9341_16x25("MULTI", 0, Line3, ILI9341_BLACK, ILI9341_WHITE);
-
+        case 12: // Display Menu: M12, UnBox <MULTI>, BOX <SINGLE>.
+            Box_ILI9341(0, Line2, 100, 30, ILI9341_BLACK); // UnBOX <SINGLE>.
+            Box_ILI9341(0, Line3, 100, 30, ILI9341_WHITE); // BOX <MULTI>.
             break;
 
         case 20: // Display Menu: M20, <GALV> highlighted.
@@ -627,7 +603,7 @@ void Menu(void) {
                 LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
-                Box_ILI9341(0, (Line4), 150, 30, ILI9341_WHITE); // Box <MEM MODE:>.
+                Box_ILI9341(0, (Line4), 90, 30, ILI9341_WHITE); // Box <GALV MODE:>.
                 LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
             }
@@ -643,20 +619,24 @@ void Menu(void) {
             }
             break;
 
-        case 21: // Display Menu: M21.
-            if (DoForward)
-                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // Changed for Line 4.
-            if (DoForward)
+        case 21: // Display Menu: M21, <GALV> submenu
+            if (DoForward) {// Menu M21 from M20 or M22, create menu for first time
+                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // increased to cover Line5         
                 LineWrite_XY_ILI9341_16x25("GALV Mode:", 0, Line0, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoForward) || (DoUp))
-                LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_BLACK, ILI9341_WHITE);
-            if ((DoForward) || (DoUp))
+                LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
+                Box_ILI9341(0, Line2, 55, 30, ILI9341_WHITE); // BOX <OFF>.
                 LineWrite_XY_ILI9341_16x25("ON", 0, Line3, ILI9341_WHITE, ILI9341_BLACK);
+            }
+
+            if (DoUp) {// Menu M21 from M22, unBOX <ON>, BOX <OFF>.
+                Box_ILI9341(0, Line3, 55, 30, ILI9341_BLACK); // UnBOX <ON>.
+                Box_ILI9341(0, Line2, 55, 30, ILI9341_WHITE); // BOX <OFF>.
+            }
             break;
 
-        case 22: // Display Menu: M22.
-            LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
-            LineWrite_XY_ILI9341_16x25("ON", 0, Line3, ILI9341_BLACK, ILI9341_WHITE);
+        case 22: // Display Menu: M22, UnBox <OFF>, BOX <ON>.
+            Box_ILI9341(0, Line2, 55, 30, ILI9341_BLACK); // UnBOX <OFF>.
+            Box_ILI9341(0, Line3, 55, 30, ILI9341_WHITE); // BOX <ON>.
             break;
 
         case 30: // Display Menu M30.
@@ -666,7 +646,7 @@ void Menu(void) {
 
         case 40: // Display Running Display.
             if (DoForward)
-                FillRec_ILI9341(0, 0, 480, 176, ILI9341_BLACK);
+                FillRec_ILI9341(0, 0, 480, 177, ILI9341_BLACK);
             // Decide which mode to display based on SM_FLG.
 
             if (SM_FLG) { // SINGLE mode condition
@@ -724,21 +704,24 @@ void Menu(void) {
             }
             break;
 
-        case 51: // Display Menu: M51.
-            if (DoForward)
-                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // Changed for Line 4.
-            if (DoForward)
+        case 51:// Display Menu: M51.
+            if (DoForward) {// Menu M51 from M50 or M52, create menu for first time
+                FillRec_ILI9341(0, 0, 480, 170, ILI9341_BLACK); // increased to cover Line5         
                 LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line0, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoForward) || (DoUp))
-                LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_BLACK, ILI9341_WHITE);
-            if ((DoForward) || (DoUp))
+                LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
+                Box_ILI9341(0, Line2, 55, 30, ILI9341_WHITE); // BOX <OFF>.
                 LineWrite_XY_ILI9341_16x25("ON", 0, Line3, ILI9341_WHITE, ILI9341_BLACK);
+            }
+
+            if (DoUp) {// Menu M51 from M52, unBOX <ON>, BOX <OFF>.
+                Box_ILI9341(0, Line3, 55, 30, ILI9341_BLACK); // UnBOX <ON>.
+                Box_ILI9341(0, Line2, 55, 30, ILI9341_WHITE); // BOX <OFF>.
+            }
             break;
 
-
-        case 52: // Display Menu: M52.
-            LineWrite_XY_ILI9341_16x25("OFF", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
-            LineWrite_XY_ILI9341_16x25("ON", 0, Line3, ILI9341_BLACK, ILI9341_WHITE);
+        case 52: // Display Menu: M52, UnBox <OFF>, BOX <ON>.
+            Box_ILI9341(0, Line2, 55, 30, ILI9341_BLACK); // UnBOX <OFF>.
+            Box_ILI9341(0, Line3, 55, 30, ILI9341_WHITE); // BOX <ON>.
             break;
 
 
