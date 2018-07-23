@@ -374,7 +374,7 @@ void Encoder_Switch(void) {
         //Single();
         Memory_Recovery();
         Menu();
-    }        // Change from M21 back to M20.
+    }// Change from M21 back to M20.
         // This action also turns GALV function off.
     else if (MenuNo == 21) {
         MenuNo = 20;
@@ -425,6 +425,7 @@ void Encoder_Switch(void) {
     else if (MenuNo == 40) {
         MENU_FLG = 1; // entering MENU mode (Not OK to fire).
         MenuNo = 10; // Enter menu in M10 screen.
+        DoBack = 1;
         //E_Write(EMenu, MenuNo); // Write MenuNo to memory.
         // Do not skip ClearOLED().
         //IEC0bits.AD1IE = 0; // disable A/D Conversion Done interrupt
@@ -475,14 +476,14 @@ void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
     // ************************************
     // SRCLK controls the output buffers of '245.
     // SR_LATCH shifts the shift register.
-    
-    
+
+
     // Initialize Shift Register.
     //SERIAL = 0;
-   // SRCLK = 0;
+    // SRCLK = 0;
     //SR_LATCH = 0;
     SR_CLEAR = 0; // Clear shift register.
-    SR_CLEAR = 1;// active low so a 1 is disabled
+    SR_CLEAR = 1; // active low so a 1 is disabled
 
     // Disable the output of the shift register (active low).
     // Initially port F3 set to 1 in 'PortInit' header.
@@ -515,8 +516,8 @@ void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
         FIRE_FIRST_FLG = 1;
         SRCLK = 0;
     } else {
-     Reset(); // Reset if not in channel recovery mode.
-     }
+        Reset(); // Reset if not in channel recovery mode.
+    }
 
     // Enable the output of the shift register (active low).
     // Initially port F3 set to 1 in 'PortInit' header.
@@ -549,16 +550,36 @@ void Menu(void) {
              */
             break;
 
-        case 10: // Display Menu: M10.
-            if ((DoDown) || (DoBack))
+        case 10: // Display Menu: M10, <FIRE Mode:> highlighted.
+            if (DoBack) {// Print M10, From either M40 Running menu or <FIRE> submenu.
                 FillRec_ILI9341(0, 0, 480, 176, ILI9341_BLACK);
 
-            if (DoUp)// Do first if going up menu.
+                LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_GREEN, ILI9341_BLACK);
+                Box_ILI9341(0, (Line2), 150, 30, ILI9341_WHITE); // Box <FIRE MODE:>.
+                LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
+            }
+
+
+            if (DoUp) { // M10 from M50, BOX <FIRE>, UnBOX <MEM>.
+                Box_ILI9341(0, (Line3), 150, 30, ILI9341_BLACK); // UnBox <MEM MODE:>.
+                Box_ILI9341(0, (Line2), 150, 30, ILI9341_WHITE); // BOX <FIRE MODE:>.
+            }
+/*
+            if (DoUp)// Do first if going up menu.
+                Box_ILI9341(0, (Line3), 150, 30, ILI9341_BLACK); // Blank out 'MEM' box.
+            //LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
+
             if ((DoDown) || (DoBack) | (DoUp))
-                LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_BLACK, ILI9341_GREEN);
+                LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_GREEN, ILI9341_BLACK);
+            Box_ILI9341(0, (Line2), 150, 30, ILI9341_WHITE); // Box <FIRE Mode:>
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
 
@@ -574,6 +595,7 @@ void Menu(void) {
                 LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
             if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
+  */
             break;
 
         case 11: // Display Menu: M11.
@@ -595,32 +617,30 @@ void Menu(void) {
 
             break;
 
-        case 20: // Display Menu: M20.
-            if (DoBack)
+        case 20: // Display Menu: M20, <GALV> highlighted.
+            if (DoBack) {// Print M20, <Menu> from <GALV> submenu screen.
                 FillRec_ILI9341(0, 0, 480, 176, ILI9341_BLACK);
-            if (DoBack)
+
                 LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
-
-            if (DoUp)// Print GALV first is moving up menu.
-                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_BLACK, ILI9341_GREEN);
-
-            if ((DoDown || DoBack))
                 LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_GREEN, ILI9341_BLACK);
-            if (DoBack)
                 LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
-
-            if ((DoDown || DoBack))
                 LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
-            if (DoBack)
                 LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
-            if (DoUp)// Do first if going up menu.
-                LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
-            if (DoDown || DoBack)
-                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_BLACK, ILI9341_GREEN);
-            if (DoBack)
+                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
+                Box_ILI9341(0, (Line4), 150, 30, ILI9341_WHITE); // Box <MEM MODE:>.
                 LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
-            if (DoBack)
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
+            }
+
+            if (DoDown) {// Print M20 from M50, unBOX <MEM>, BOX <GALV> 
+                Box_ILI9341(0, (Line3), 150, 30, ILI9341_BLACK); // UnBOX <MEM>.
+                Box_ILI9341(0, (Line4), 90, 30, ILI9341_WHITE); // BOX <GALV>.
+            }
+
+            if (DoUp) {// Print M20 from M50, UnBOX <EXIT>, BOX <GALV>
+                Box_ILI9341(0, (Line5), 90, 30, ILI9341_BLACK); // UnBox <EXIT>.
+                Box_ILI9341(0, (Line4), 90, 30, ILI9341_WHITE); // Box <GALV>.
+            }
             break;
 
         case 21: // Display Menu: M21.
@@ -639,9 +659,9 @@ void Menu(void) {
             LineWrite_XY_ILI9341_16x25("ON", 0, Line3, ILI9341_BLACK, ILI9341_WHITE);
             break;
 
-        case 30: // Display Menu: M30.
-            LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
-            LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_BLACK, ILI9341_GREEN);
+        case 30: // Display Menu M30.
+            Box_ILI9341(0, (Line4), 90, 30, ILI9341_BLACK); // UnBOX <GALV>.
+            Box_ILI9341(0, (Line5), 90, 30, ILI9341_WHITE); // BOX <EXIT>.
             break;
 
         case 40: // Display Running Display.
@@ -678,33 +698,30 @@ void Menu(void) {
             LineWrite_XY_ILI9341_16x25("V", 302, Line6, ILI9341_CYAN, ILI9341_BLACK);
 
             break;
-        case 50: // Displaying menu M50
-            if (DoBack)
+        case 50: // Displaying menu M50, <MEM Mode:> highlighted.
+            if (DoBack) {// Print M10, <Menu> from <MEM> submenu screen.
                 FillRec_ILI9341(0, 0, 480, 176, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
+
                 LineWrite_XY_ILI9341_16x25("MENU", 128, Line0, ILI9341_GREEN, ILI9341_BLACK);
-
-            if (DoUp)// Do first if going up menu.
-                LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoDown) || (DoBack) | (DoUp))
-
                 LineWrite_XY_ILI9341_16x25("FIRE Mode:", 0, Line2, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 176, Line2, ILI9341_WHITE, ILI9341_BLACK);
-
-            if ((DoDown) || (DoBack) | DoUp)
-                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_BLACK, ILI9341_GREEN);
-            if ((DoDown) || (DoBack))
+                LineWrite_XY_ILI9341_16x25("MEM Mode:", 0, Line3, ILI9341_GREEN, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25(MemStatePt[MEMORY_MODE_FLG], 200, Line3, ILI9341_WHITE, ILI9341_BLACK);
-
-
-            if ((DoDown) || (DoBack) | (DoUp))
+                Box_ILI9341(0, (Line3), 150, 30, ILI9341_WHITE); // Box <MEM MODE:>.
                 LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
-            if ((DoDown) || (DoBack))
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
+            }
 
+            if (DoDown) {// Print M50 from M10, unBOX <FIRE>, BOX <MEM> 
+                Box_ILI9341(0, (Line2), 150, 30, ILI9341_BLACK); // UnBOX <FIRE>.
+                Box_ILI9341(0, (Line3), 150, 30, ILI9341_WHITE); // BOX <MEM>.
+            }
+
+            if (DoUp) {// Print M50 from M20, UnBOX <GALV:>, BOX <MEM>
+                Box_ILI9341(0, (Line4), 90, 30, ILI9341_BLACK); // UnBox <GALV>.
+                Box_ILI9341(0, (Line3), 150, 30, ILI9341_WHITE); // Box <MEM>.
+            }
             break;
 
         case 51: // Display Menu: M51.
@@ -962,7 +979,7 @@ void Rotory_Encoder(void) {
             DoDown = 0;
             DoUp = 1;
             Menu();
-        }            // Menu 22 to 21 (CCW)
+        }// Menu 22 to 21 (CCW)
         else if (MenuNo == 22) {
             // The disables the rotary encode during ARM/GLV conflict.
             if (ARM_GLV_FLG == 0) {

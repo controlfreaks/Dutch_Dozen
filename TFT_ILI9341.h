@@ -136,11 +136,15 @@
 #define ILI9341_PINK        0xF81F
 #define ILI9341_PHOSPHORGREEN 0x07C7
 
+
+int border = 2; // Box border width.
+
 // *** Function Prototypes here ***
 
 
 void CharWrite_XY_ILI9341_16x25(int digit, long int x_start, long int y_start,
         long int fore_colour, long int back_colour);
+void Box_IL9341(long int x, long int y, long int width, long int height, long int colour);
 void DrawPixel_ILI9341(long int x, long int y, long int colour);
 void FillRec_ILI9341(long int x, long int y, long int w, long int h,
         long int colour);
@@ -293,7 +297,7 @@ void DrawPixel_ILI9341(long int x, long int y, long int colour) {
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
     DC = DATA; // Write Command, leave low
     CS = 0; // Activate ~CS   
@@ -309,7 +313,16 @@ void DrawPixel_ILI9341(long int x, long int y, long int colour) {
     IEC0bits.INT0IE = 1; // enable INT0 ISR
 }
 
+void Box_ILI9341(long int x, long int y, long int width, long int height, long int colour) {
+    int offset = 3; // offset from Linex to start box.
 
+    // Outline in another colour.
+    FillRec_ILI9341(x, (y - offset), width, border, colour); // Top
+    FillRec_ILI9341((x + width - border), (y - offset), border, height, colour); // right side
+    // Bottom.
+    FillRec_ILI9341(x, ((y - offset) + height - border), (width - border), border, colour);
+    FillRec_ILI9341(x, (y - offset), (border), (height - border), colour); // left side.
+}
 
 void FillRec_ILI9341(long int x, long int y, long int w, long int h, long int colour) {
 
@@ -330,7 +343,7 @@ void FillRec_ILI9341(long int x, long int y, long int w, long int h, long int co
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
     DC = DATA; // Write Command, leave low
     CS = 0; // Activate ~CS   
@@ -370,9 +383,6 @@ void SetAddrWindow_ILI9341(long int X_Start, long int Y_Start, long int X_End,
 
     WriteCommand_ILI9341(ILI9341_RAMWR); // write to RAM
 }
-
-
-
 
 /*
 void CharWrite_XY_ILI9341(int digit, long int x_start, long int y_start,
@@ -478,18 +488,14 @@ void LineWrite_XY_ILI9341_16x25(char *digit, long int x, long int line, long int
     }
 }
 
-
-
-
-
 void WriteCommand_ILI9341(unsigned char Command) {
     IEC1bits.CNIE = 0; // disable CN ISR
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
-    
+
     DC = COMMAND; // Write Command, leave low
     //Original delay of 12 NOPs approx 1.5uS.
     CS = 0; // Activate ~CS
@@ -511,9 +517,9 @@ void WriteData_ILI9341(unsigned char Data) {
     IEC3bits.INT3IE = 0; // disable INT3 ISR
     IEC3bits.INT4IE = 0; // disable INT4 ISR
     IEC0bits.INT0IE = 0; // disable INT0 ISR
-    Nop();      // Added for interrupt disable timing.
+    Nop(); // Added for interrupt disable timing.
 
-    
+
     DC = DATA; // Write Command, leave low
     //Original delay of 12 NOPs approx 1.5uS.
     CS = 0; // Activate ~CS

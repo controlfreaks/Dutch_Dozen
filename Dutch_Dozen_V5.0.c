@@ -128,7 +128,6 @@ int Count = KLUNK_CH; // Number of Klunker channels + 1.
 
 int main(int argc, char** argv) {
 
-    int Channel_count = 0; // Local channel count var. Set to RESET condition.
 
     // **************************  
     // **** Initialize PORTS ****
@@ -140,7 +139,7 @@ int main(int argc, char** argv) {
     // ****************************
 
     // This flag determines original state of the memory flag.
-    MEMORY_MODE_FLG = OFF; // Initially not in mode.
+    MEMORY_MODE_FLG = ON; // Initially not in mode.
 
     // This flag is set because multi-mode delay starts @ 200 (3 digits).
     THREE_DIGIT_FLG = 1;
@@ -189,7 +188,7 @@ int main(int argc, char** argv) {
     // *** Display splash screen ***
     // *****************************
 
-    SplashDisplay();
+    //SplashDisplay();
     FillScreen_ILI9341(ILI9341_BLACK);
 
     // *****************************
@@ -204,7 +203,7 @@ int main(int argc, char** argv) {
     // Fill EEPROM with initial settings, (running display, delay = 200ms)
     // This is only done once, on the 1st programming of the board.
 
-    E_Write(EMemory_Mode, OFF); // Initialize to reset condition.
+    //E_Write(EMemory_Mode, OFF); // Initialize to reset condition.
 
     while ((E_Read(EInit_FLG)) != NOT_FIRST_TIMER) { // Number which identifies not 1st time through.
         E_Write(EDelay_Count, ARRAY_MID); // Initialize memory location. (24)
@@ -279,62 +278,7 @@ int main(int argc, char** argv) {
      */
     MEMORY_MODE_FLG = E_Read(EMemory_Mode);
     if (MEMORY_MODE_FLG) {
-
-        // ***************************************
-        // *** Mode Delay **** MEMORY RECOVERY ***
-        // ***************************************
-
-        Array_Count = E_Read(EDelay_Count);
-        place = E_Read(EDelay_Place);
-        THREE_DIGIT_FLG = E_Read(EDelay_3D_FLG);
-
-        // ************************************
-        // *** Channel **** MEMORY RECOVERY ***
-        // ************************************
-        // SRCLK controls the output buffers of '245.
-        // SR_LATCH shifts the shift register.
-        Channel_count = E_Read(EChannel); // Retrieve stored channel value
-        Count = (Channel_count);
-        // Test to see if channel advancing is necessary.
-        if (Channel_count != KLUNK_CH) { // Non reset condition.
-            FIRE_FIRST_FLG = 1;
-            RESET_LED = 0;
-            CHANNEL_FLG = 1; //  Non-reset condition, used in Rotate(), determines bit set for shifting.
-            while ((KLUNK_CH - Channel_count) >= 1) {
-                Nop();
-                SRCLK = 0;
-                SERIAL = 0;
-                if (FIRE_FIRST_FLG == 1)
-                    SERIAL = 1;
-
-                SRCLK = 1; // Shift pulse to nest channel/ activate '245.
-                Nop();
-
-                SR_LATCH = 1; // Output to SR.
-                Nop(); // Timing delay for SR.
-                SR_LATCH = 0; // Kill latch pulse.
-                Nop();
-                FIRE_FIRST_FLG = 0; // Clear FIRE_FIRST flag.
-                Channel_count++;
-            }
-            FIRE_FIRST_FLG = 1;
-            SRCLK = 0;
-        } else {
-            Reset(); // Reset if not in channel recovery mode.
-        }
-
-        // Enable the output of the shift register (active low).
-        // Initially port F3 set to 1 in 'PortInit' header.
-       // SHIFT_REG_EN = 0;
-
-        // ****************************************
-        //  *** Single/Mode *** MEMORY RECOVERY ***
-        // ****************************************
-        // Make sure this is the last test before main.
-        SM_FLG = E_Read(EMode);
-        // if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
-        //    Multi();
-        //   }
+        Memory_Recovery();
     } else { // Revert to default mode
         // E_Write(EDelay_Count, ARRAY_MID); // Initialize memory location. (24)
         Array_Count = ARRAY_MID;
@@ -349,11 +293,11 @@ int main(int argc, char** argv) {
         Count = KLUNK_CH;
         Reset();
     }
-    
+
     // Enable the output of the shift register (active low).
     // Initially port F3 set to 1 in 'PortInit' header.
     SHIFT_REG_EN = 0;
-    
+
     if (!SM_FLG) { // Call Multi() to turn on SM_LED. (if Multi mode)
         Multi();
     }
@@ -609,6 +553,8 @@ void Fire_Alert(void) {
 void Latch_Test(void) {
     // not sure how to initiate this
 }
+
+
 
 void SplashDisplay(void) {
 

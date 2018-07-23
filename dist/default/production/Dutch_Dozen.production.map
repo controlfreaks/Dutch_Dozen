@@ -91,11 +91,11 @@ Program Memory  [Origin = 0x200, Length = 0x155fc]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x59c           0x86a  (2154)
-.const                       0x79c              0x763e          0xb15d  (45405)
-.text                       0x7dda              0x2126          0x31b9  (12729)
-.dinit                      0x9f00                0x9c            0xea  (234)
+.const                       0x79c              0x7648          0xb16c  (45420)
+.text                       0x7de4              0x2594          0x385e  (14430)
+.dinit                      0xa378                0xa0            0xf0  (240)
 
-                 Total program memory used (bytes):         0xec6a  (60522) 46%
+                 Total program memory used (bytes):         0xf324  (62244) 47%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -117,11 +117,11 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.ndata                       0x800                   0            0x22  (34)
-.nbss                        0x822                   0            0x20  (32)
-.data                        0x842                   0            0xa8  (168)
+.ndata                       0x800                   0            0x24  (36)
+.nbss                        0x824                   0            0x20  (32)
+.data                        0x844                   0            0xac  (172)
 
-                 Total data memory used (bytes):           0xea  (234) 2%
+                 Total data memory used (bytes):           0xf0  (240) 2%
 
 
 Dynamic Memory Usage
@@ -129,9 +129,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x8ea                              0x1f16  (7958)
+stack                        0x8f0                              0x1f10  (7952)
 
-                 Maximum dynamic memory (bytes):         0x1f16  (7958)
+                 Maximum dynamic memory (bytes):         0x1f10  (7952)
 
 
 External Symbols in Data Memory (by address):
@@ -143,44 +143,46 @@ External Symbols in Data Memory (by address):
                     0x0808                  _EDelay_Place
                     0x080a                  _EMemory_Mode
                     0x080c                  _EChannel
-                    0x080e                  _Multi_Delay
-                    0x0810                  _Multi_Delay_Step
-                    0x0812                  _Multi_Delay_Max
-                    0x0814                  _Multi_Delay_Min
-                    0x0816                  _DoDown
-                    0x0818                  _column
-                    0x081a                  _Array_Count
-                    0x081c                  _place
-                    0x081e                  _MenuNo
-                    0x0820                  _Count
-                    0x0822                  _EMode
-                    0x0824                  _FLAGBITS_A
-                    0x0826                  _FLAGBITS_B
-                    0x0828                  _CHANGEBITS
-                    0x082a                  _PortB_New
-                    0x082c                  _PortB_Last
-                    0x082e                  _PortB_Temp
-                    0x0830                  _Result
-                    0x0832                  _SendReg
-                    0x0834                  _DoUp
-                    0x0836                  _DoBack
-                    0x0838                  _DoForward
-                    0x0842                  _Array_DelayMs
-                    0x0892                  _Array_DelayHex
-                    0x08e2                  _FireModePt
-                    0x08e6                  _GalvStatePt
+                    0x080e                  _border
+                    0x0810                  _Multi_Delay
+                    0x0812                  _Multi_Delay_Step
+                    0x0814                  _Multi_Delay_Max
+                    0x0816                  _Multi_Delay_Min
+                    0x0818                  _DoDown
+                    0x081a                  _column
+                    0x081c                  _Array_Count
+                    0x081e                  _place
+                    0x0820                  _MenuNo
+                    0x0822                  _Count
+                    0x0824                  _EMode
+                    0x0826                  _FLAGBITS_A
+                    0x0828                  _FLAGBITS_B
+                    0x082a                  _CHANGEBITS
+                    0x082c                  _PortB_New
+                    0x082e                  _PortB_Last
+                    0x0830                  _PortB_Temp
+                    0x0832                  _Result
+                    0x0834                  _SendReg
+                    0x0836                  _DoUp
+                    0x0838                  _DoBack
+                    0x083a                  _DoForward
+                    0x0844                  _Array_DelayMs
+                    0x0894                  _Array_DelayHex
+                    0x08e4                  _FireModePt
+                    0x08e8                  _GalvStatePt
+                    0x08ec                  _MemStatePt
 
 External Symbols in Data Memory (by name):
 
-                    0x081a                  _Array_Count
-                    0x0892                  _Array_DelayHex
-                    0x0842                  _Array_DelayMs
-                    0x0828                  _CHANGEBITS
-                    0x0820                  _Count
-                    0x0836                  _DoBack
-                    0x0816                  _DoDown
-                    0x0838                  _DoForward
-                    0x0834                  _DoUp
+                    0x081c                  _Array_Count
+                    0x0894                  _Array_DelayHex
+                    0x0844                  _Array_DelayMs
+                    0x082a                  _CHANGEBITS
+                    0x0822                  _Count
+                    0x0838                  _DoBack
+                    0x0818                  _DoDown
+                    0x083a                  _DoForward
+                    0x0836                  _DoUp
                     0x080c                  _EChannel
                     0x0806                  _EDelay_3D_FLG
                     0x0802                  _EDelay_Count
@@ -188,23 +190,25 @@ External Symbols in Data Memory (by name):
                     0x0804                  _EInit_FLG
                     0x080a                  _EMemory_Mode
                     0x0800                  _EMenu
-                    0x0822                  _EMode
-                    0x0824                  _FLAGBITS_A
-                    0x0826                  _FLAGBITS_B
-                    0x08e2                  _FireModePt
-                    0x08e6                  _GalvStatePt
-                    0x081e                  _MenuNo
-                    0x080e                  _Multi_Delay
-                    0x0812                  _Multi_Delay_Max
-                    0x0814                  _Multi_Delay_Min
-                    0x0810                  _Multi_Delay_Step
-                    0x082c                  _PortB_Last
-                    0x082a                  _PortB_New
-                    0x082e                  _PortB_Temp
-                    0x0830                  _Result
-                    0x0832                  _SendReg
-                    0x0818                  _column
-                    0x081c                  _place
+                    0x0824                  _EMode
+                    0x0826                  _FLAGBITS_A
+                    0x0828                  _FLAGBITS_B
+                    0x08e4                  _FireModePt
+                    0x08e8                  _GalvStatePt
+                    0x08ec                  _MemStatePt
+                    0x0820                  _MenuNo
+                    0x0810                  _Multi_Delay
+                    0x0814                  _Multi_Delay_Max
+                    0x0816                  _Multi_Delay_Min
+                    0x0812                  _Multi_Delay_Step
+                    0x082e                  _PortB_Last
+                    0x082c                  _PortB_New
+                    0x0830                  _PortB_Temp
+                    0x0832                  _Result
+                    0x0834                  _SendReg
+                    0x080e                  _border
+                    0x081a                  _column
+                    0x081e                  _place
 
 External Symbols in Program Memory (by address):
 
@@ -223,8 +227,8 @@ External Symbols in Program Memory (by address):
                   0x000450                  __T4Interrupt
                   0x000466                  __DefaultInterrupt
                   0x00046c                  ___divsf3
-                  0x0004f0                  ___eqsf2
                   0x0004f0                  ___ltsf2
+                  0x0004f0                  ___eqsf2
                   0x0004f0                  ___lesf2
                   0x0004f4                  ___gtsf2
                   0x0004f4                  ___gesf2
@@ -244,94 +248,100 @@ External Symbols in Program Memory (by address):
                   0x000740                  _utoa
                   0x000774                  _itoa
                   0x000790                  _strlen
-                  0x007dda                  _ADCInit
-                  0x007e54                  _DelayMs
-                  0x007ea6                  _DelayUs
-                  0x007ec8                  _EEPROM_Setup
-                  0x007eda                  _E_Read
-                  0x007fb8                  _E_EWEN
-                  0x008070                  _E_Erase
-                  0x008076                  _E_Write
-                  0x008184                  _E_Eral
-                  0x00818a                  _E_Wral
-                  0x008192                  _E_Ewds
-                  0x008198                  _PortInit
-                  0x008396                  _IntInit
-                  0x008450                  _Initialize_TFT_ILI9341
-                  0x0085ce                  _DrawPixel_ILI9341
-                  0x008684                  _FillRec_ILI9341
-                  0x0087bc                  _FillScreen_ILI9341
-                  0x0087d8                  _SetAddrWindow_ILI9341
-                  0x00885e                  _CharWrite_XY_ILI9341_16x25
-                  0x0089a2                  _LineWrite_XY_ILI9341_16x25
-                  0x008a30                  _WriteCommand_ILI9341
-                  0x008a68                  _WriteData_ILI9341
-                  0x008aa0                  _Arm
-                  0x008b9a                  _Clear_SR
-                  0x008bb0                  _Encoder_Switch
-                  0x008cae                  _Firing
-                  0x008cdc                  _Menu
-                  0x0092ac                  _Multi
-                  0x0092d2                  _Parse_PortB
-                  0x009322                  _Reset
-                  0x00934c                  _Rotate
-                  0x009390                  _Rotory_Encoder
-                  0x009598                  _Shift
-                  0x0095b6                  _Single
-                  0x0095d4                  _DecimalInsert
-                  0x0095de                  _Version
-                  0x00969a                  _TimerInit
-                  0x0096d2                  _SPIInit
-                  0x00970a                  _main
-                  0x009a1c                  _Arm_Alert
-                  0x009c34                  _Fire_Alert
-                  0x009e1c                  _Latch_Test
-                  0x009e22                  _SplashDisplay
+                  0x007de4                  _ADCInit
+                  0x007e5e                  _DelayMs
+                  0x007eb0                  _DelayUs
+                  0x007ed2                  _EEPROM_Setup
+                  0x007ee4                  _E_Read
+                  0x007fc2                  _E_EWEN
+                  0x00807a                  _E_Erase
+                  0x008080                  _E_Write
+                  0x00818e                  _E_Eral
+                  0x008194                  _E_Wral
+                  0x00819c                  _E_Ewds
+                  0x0081a2                  _PortInit
+                  0x0083a0                  _IntInit
+                  0x00845a                  _Initialize_TFT_ILI9341
+                  0x0085d8                  _DrawPixel_ILI9341
+                  0x00868e                  _Box_ILI9341
+                  0x00877a                  _FillRec_ILI9341
+                  0x0088b2                  _FillScreen_ILI9341
+                  0x0088ce                  _SetAddrWindow_ILI9341
+                  0x008954                  _CharWrite_XY_ILI9341_16x25
+                  0x008a98                  _LineWrite_XY_ILI9341_16x25
+                  0x008b26                  _WriteCommand_ILI9341
+                  0x008b5e                  _WriteData_ILI9341
+                  0x008b96                  _Arm
+                  0x008c90                  _Clear_SR
+                  0x008ca6                  _Current_Condition
+                  0x008cbe                  _Encoder_Switch
+                  0x008dec                  _Firing
+                  0x008e1a                  _Memory_Recovery
+                  0x008ebc                  _Menu
+                  0x00975a                  _Multi
+                  0x009780                  _Parse_PortB
+                  0x0097d0                  _Reset
+                  0x0097fa                  _Rotate
+                  0x00983e                  _Rotory_Encoder
+                  0x009a9e                  _Shift
+                  0x009abc                  _Single
+                  0x009ada                  _DecimalInsert
+                  0x009ae4                  _Version
+                  0x009ba0                  _TimerInit
+                  0x009bd8                  _SPIInit
+                  0x009c10                  _main
+                  0x009e94                  _Arm_Alert
+                  0x00a0ac                  _Fire_Alert
+                  0x00a294                  _Latch_Test
+                  0x00a29a                  _SplashDisplay
 
 External Symbols in Program Memory (by name):
 
-                  0x007dda                  _ADCInit
-                  0x008aa0                  _Arm
-                  0x009a1c                  _Arm_Alert
-                  0x00885e                  _CharWrite_XY_ILI9341_16x25
-                  0x008b9a                  _Clear_SR
-                  0x0095d4                  _DecimalInsert
-                  0x007e54                  _DelayMs
-                  0x007ea6                  _DelayUs
-                  0x0085ce                  _DrawPixel_ILI9341
-                  0x007ec8                  _EEPROM_Setup
-                  0x007fb8                  _E_EWEN
-                  0x008184                  _E_Eral
-                  0x008070                  _E_Erase
-                  0x008192                  _E_Ewds
-                  0x007eda                  _E_Read
-                  0x00818a                  _E_Wral
-                  0x008076                  _E_Write
-                  0x008bb0                  _Encoder_Switch
-                  0x008684                  _FillRec_ILI9341
-                  0x0087bc                  _FillScreen_ILI9341
-                  0x009c34                  _Fire_Alert
-                  0x008cae                  _Firing
-                  0x008450                  _Initialize_TFT_ILI9341
-                  0x008396                  _IntInit
-                  0x009e1c                  _Latch_Test
-                  0x0089a2                  _LineWrite_XY_ILI9341_16x25
-                  0x008cdc                  _Menu
-                  0x0092ac                  _Multi
-                  0x0092d2                  _Parse_PortB
-                  0x008198                  _PortInit
-                  0x009322                  _Reset
-                  0x00934c                  _Rotate
-                  0x009390                  _Rotory_Encoder
-                  0x0096d2                  _SPIInit
-                  0x0087d8                  _SetAddrWindow_ILI9341
-                  0x009598                  _Shift
-                  0x0095b6                  _Single
-                  0x009e22                  _SplashDisplay
-                  0x00969a                  _TimerInit
-                  0x0095de                  _Version
-                  0x008a30                  _WriteCommand_ILI9341
-                  0x008a68                  _WriteData_ILI9341
+                  0x007de4                  _ADCInit
+                  0x008b96                  _Arm
+                  0x009e94                  _Arm_Alert
+                  0x00868e                  _Box_ILI9341
+                  0x008954                  _CharWrite_XY_ILI9341_16x25
+                  0x008c90                  _Clear_SR
+                  0x008ca6                  _Current_Condition
+                  0x009ada                  _DecimalInsert
+                  0x007e5e                  _DelayMs
+                  0x007eb0                  _DelayUs
+                  0x0085d8                  _DrawPixel_ILI9341
+                  0x007ed2                  _EEPROM_Setup
+                  0x007fc2                  _E_EWEN
+                  0x00818e                  _E_Eral
+                  0x00807a                  _E_Erase
+                  0x00819c                  _E_Ewds
+                  0x007ee4                  _E_Read
+                  0x008194                  _E_Wral
+                  0x008080                  _E_Write
+                  0x008cbe                  _Encoder_Switch
+                  0x00877a                  _FillRec_ILI9341
+                  0x0088b2                  _FillScreen_ILI9341
+                  0x00a0ac                  _Fire_Alert
+                  0x008dec                  _Firing
+                  0x00845a                  _Initialize_TFT_ILI9341
+                  0x0083a0                  _IntInit
+                  0x00a294                  _Latch_Test
+                  0x008a98                  _LineWrite_XY_ILI9341_16x25
+                  0x008e1a                  _Memory_Recovery
+                  0x008ebc                  _Menu
+                  0x00975a                  _Multi
+                  0x009780                  _Parse_PortB
+                  0x0081a2                  _PortInit
+                  0x0097d0                  _Reset
+                  0x0097fa                  _Rotate
+                  0x00983e                  _Rotory_Encoder
+                  0x009bd8                  _SPIInit
+                  0x0088ce                  _SetAddrWindow_ILI9341
+                  0x009a9e                  _Shift
+                  0x009abc                  _Single
+                  0x00a29a                  _SplashDisplay
+                  0x009ba0                  _TimerInit
+                  0x009ae4                  _Version
+                  0x008b26                  _WriteCommand_ILI9341
+                  0x008b5e                  _WriteData_ILI9341
                   0x0002c8                  __ADC1Interrupt
                   0x0002dc                  __CNInterrupt
                   0x000466                  __DefaultInterrupt
@@ -366,7 +376,7 @@ External Symbols in Program Memory (by name):
                   0x000200                  __resetPRI
                   0x000702                  _atoi
                   0x000774                  _itoa
-                  0x00970a                  _main
+                  0x009c10                  _main
                   0x000790                  _strlen
                   0x000740                  _utoa
 
@@ -498,26 +508,26 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x59c7
+.debug_info       0x000000       0x5ad3
  *(.debug_info)
- .debug_info      0x000000       0x59c7 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_info      0x000000       0x5ad3 build/default/production/Dutch_Dozen_V5.0.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x2ac
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x2ac build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_line       0x000000        0x931
+.debug_line       0x000000        0x9c5
  *(.debug_line)
- .debug_line      0x000000        0x931 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_line      0x000000        0x9c5 build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_frame      0x000000        0x7c8
+.debug_frame      0x000000        0x82a
  *(.debug_frame)
- .debug_frame     0x000000        0x7c8 build/default/production/Dutch_Dozen_V5.0.o
+ .debug_frame     0x000000        0x82a build/default/production/Dutch_Dozen_V5.0.o
 
-.debug_str        0x000000        0x34c
+.debug_str        0x000000        0x357
  *(.debug_str)
- .debug_str       0x000000        0x34c build/default/production/Dutch_Dozen_V5.0.o
+ .debug_str       0x000000        0x357 build/default/production/Dutch_Dozen_V5.0.o
 
 .debug_loc
  *(.debug_loc)
@@ -526,10 +536,10 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x525
+                  0x000000        0x579
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x525 build/default/production/Dutch_Dozen_V5.0.o
+                  0x000000        0x579 build/default/production/Dutch_Dozen_V5.0.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1165,8 +1175,8 @@ __c30_signature
  __c30_signature
                   0x000734          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libc-elf.a(strlen.eo)
 
-.ndata              0x0800         0x22
- .ndata             0x0800         0x22 build/default/production/Dutch_Dozen_V5.0.o
+.ndata              0x0800         0x24
+ .ndata             0x0800         0x24 build/default/production/Dutch_Dozen_V5.0.o
                     0x0800                  _EMenu
                     0x0802                  _EDelay_Count
                     0x0804                  _EInit_FLG
@@ -1174,38 +1184,40 @@ __c30_signature
                     0x0808                  _EDelay_Place
                     0x080a                  _EMemory_Mode
                     0x080c                  _EChannel
-                    0x080e                  _Multi_Delay
-                    0x0810                  _Multi_Delay_Step
-                    0x0812                  _Multi_Delay_Max
-                    0x0814                  _Multi_Delay_Min
-                    0x0816                  _DoDown
-                    0x0818                  _column
-                    0x081a                  _Array_Count
-                    0x081c                  _place
-                    0x081e                  _MenuNo
-                    0x0820                  _Count
+                    0x080e                  _border
+                    0x0810                  _Multi_Delay
+                    0x0812                  _Multi_Delay_Step
+                    0x0814                  _Multi_Delay_Max
+                    0x0816                  _Multi_Delay_Min
+                    0x0818                  _DoDown
+                    0x081a                  _column
+                    0x081c                  _Array_Count
+                    0x081e                  _place
+                    0x0820                  _MenuNo
+                    0x0822                  _Count
 
-.nbss               0x0822         0x20
- .nbss              0x0822         0x20 build/default/production/Dutch_Dozen_V5.0.o
-                    0x0822                  _EMode
-                    0x0824                  _FLAGBITS_A
-                    0x0826                  _FLAGBITS_B
-                    0x0828                  _CHANGEBITS
-                    0x082a                  _PortB_New
-                    0x082c                  _PortB_Last
-                    0x082e                  _PortB_Temp
-                    0x0830                  _Result
-                    0x0832                  _SendReg
-                    0x0834                  _DoUp
-                    0x0836                  _DoBack
-                    0x0838                  _DoForward
+.nbss               0x0824         0x20
+ .nbss              0x0824         0x20 build/default/production/Dutch_Dozen_V5.0.o
+                    0x0824                  _EMode
+                    0x0826                  _FLAGBITS_A
+                    0x0828                  _FLAGBITS_B
+                    0x082a                  _CHANGEBITS
+                    0x082c                  _PortB_New
+                    0x082e                  _PortB_Last
+                    0x0830                  _PortB_Temp
+                    0x0832                  _Result
+                    0x0834                  _SendReg
+                    0x0836                  _DoUp
+                    0x0838                  _DoBack
+                    0x083a                  _DoForward
 
-.data               0x0842         0xa8
- .data              0x0842         0xa8 build/default/production/Dutch_Dozen_V5.0.o
-                    0x0842                  _Array_DelayMs
-                    0x0892                  _Array_DelayHex
-                    0x08e2                  _FireModePt
-                    0x08e6                  _GalvStatePt
+.data               0x0844         0xac
+ .data              0x0844         0xac build/default/production/Dutch_Dozen_V5.0.o
+                    0x0844                  _Array_DelayMs
+                    0x0894                  _Array_DelayHex
+                    0x08e4                  _FireModePt
+                    0x08e8                  _GalvStatePt
+                    0x08ec                  _MemStatePt
 
 .config_JTAGEN    0x0157fe          0x2
  .config_JTAGEN
@@ -1259,54 +1271,57 @@ __c30_signature
  .ivt._T4Interrupt
                   0x00004a          0x2 build/default/production/Dutch_Dozen_V5.0.o
 
-.const              0x879c       0x763e load address 0x00079c  
- .const             0x879c       0x763e build/default/production/Dutch_Dozen_V5.0.o
+.const              0x879c       0x7648 load address 0x00079c  
+ .const             0x879c       0x7648 build/default/production/Dutch_Dozen_V5.0.o
 
-.text             0x007dda       0x2126
- .text            0x007dda       0x2126 build/default/production/Dutch_Dozen_V5.0.o
-                  0x007dda                  _ADCInit
-                  0x007e54                  _DelayMs
-                  0x007ea6                  _DelayUs
-                  0x007ec8                  _EEPROM_Setup
-                  0x007eda                  _E_Read
-                  0x007fb8                  _E_EWEN
-                  0x008070                  _E_Erase
-                  0x008076                  _E_Write
-                  0x008184                  _E_Eral
-                  0x00818a                  _E_Wral
-                  0x008192                  _E_Ewds
-                  0x008198                  _PortInit
-                  0x008396                  _IntInit
-                  0x008450                  _Initialize_TFT_ILI9341
-                  0x0085ce                  _DrawPixel_ILI9341
-                  0x008684                  _FillRec_ILI9341
-                  0x0087bc                  _FillScreen_ILI9341
-                  0x0087d8                  _SetAddrWindow_ILI9341
-                  0x00885e                  _CharWrite_XY_ILI9341_16x25
-                  0x0089a2                  _LineWrite_XY_ILI9341_16x25
-                  0x008a30                  _WriteCommand_ILI9341
-                  0x008a68                  _WriteData_ILI9341
-                  0x008aa0                  _Arm
-                  0x008b9a                  _Clear_SR
-                  0x008bb0                  _Encoder_Switch
-                  0x008cae                  _Firing
-                  0x008cdc                  _Menu
-                  0x0092ac                  _Multi
-                  0x0092d2                  _Parse_PortB
-                  0x009322                  _Reset
-                  0x00934c                  _Rotate
-                  0x009390                  _Rotory_Encoder
-                  0x009598                  _Shift
-                  0x0095b6                  _Single
-                  0x0095d4                  _DecimalInsert
-                  0x0095de                  _Version
-                  0x00969a                  _TimerInit
-                  0x0096d2                  _SPIInit
-                  0x00970a                  _main
-                  0x009a1c                  _Arm_Alert
-                  0x009c34                  _Fire_Alert
-                  0x009e1c                  _Latch_Test
-                  0x009e22                  _SplashDisplay
+.text             0x007de4       0x2594
+ .text            0x007de4       0x2594 build/default/production/Dutch_Dozen_V5.0.o
+                  0x007de4                  _ADCInit
+                  0x007e5e                  _DelayMs
+                  0x007eb0                  _DelayUs
+                  0x007ed2                  _EEPROM_Setup
+                  0x007ee4                  _E_Read
+                  0x007fc2                  _E_EWEN
+                  0x00807a                  _E_Erase
+                  0x008080                  _E_Write
+                  0x00818e                  _E_Eral
+                  0x008194                  _E_Wral
+                  0x00819c                  _E_Ewds
+                  0x0081a2                  _PortInit
+                  0x0083a0                  _IntInit
+                  0x00845a                  _Initialize_TFT_ILI9341
+                  0x0085d8                  _DrawPixel_ILI9341
+                  0x00868e                  _Box_ILI9341
+                  0x00877a                  _FillRec_ILI9341
+                  0x0088b2                  _FillScreen_ILI9341
+                  0x0088ce                  _SetAddrWindow_ILI9341
+                  0x008954                  _CharWrite_XY_ILI9341_16x25
+                  0x008a98                  _LineWrite_XY_ILI9341_16x25
+                  0x008b26                  _WriteCommand_ILI9341
+                  0x008b5e                  _WriteData_ILI9341
+                  0x008b96                  _Arm
+                  0x008c90                  _Clear_SR
+                  0x008ca6                  _Current_Condition
+                  0x008cbe                  _Encoder_Switch
+                  0x008dec                  _Firing
+                  0x008e1a                  _Memory_Recovery
+                  0x008ebc                  _Menu
+                  0x00975a                  _Multi
+                  0x009780                  _Parse_PortB
+                  0x0097d0                  _Reset
+                  0x0097fa                  _Rotate
+                  0x00983e                  _Rotory_Encoder
+                  0x009a9e                  _Shift
+                  0x009abc                  _Single
+                  0x009ada                  _DecimalInsert
+                  0x009ae4                  _Version
+                  0x009ba0                  _TimerInit
+                  0x009bd8                  _SPIInit
+                  0x009c10                  _main
+                  0x009e94                  _Arm_Alert
+                  0x00a0ac                  _Fire_Alert
+                  0x00a294                  _Latch_Test
+                  0x00a29a                  _SplashDisplay
 
-.dinit            0x009f00         0x9c
- .dinit           0x009f00         0x9c data_init
+.dinit            0x00a378         0xa0
+ .dinit           0x00a378         0xa0 data_init

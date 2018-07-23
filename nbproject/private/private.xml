@@ -28,7 +28,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/james_000/MPLABXProjects/Dutch_Dozen/README.md</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/INTInit_V5.0.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/Misc_Macro_V5.0.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/TFT_ILI9341.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/MyFunctions_V5.0.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/PortInit_V5.0.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/InterruptISR_V5.0.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/EEPROM_AT93C96D.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/SPIInit_V5.0.h</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/Dutch_Dozen_V5.0.c</file>
+            <file>file:/C:/Users/james/MPLABXProjects/Dutch_Dozen/Laser_Array/Dutch_Dozen/TimerInit_V5.0.h</file>
         </group>
     </open-files>
 </project-private>
