@@ -77,7 +77,7 @@
 #define CHG_BATT_COM 660    // Level for <CHARGE COMPLETE> message.
 #define LOW_BATT 580    // Level for <LOW BATTERY> message.(10.0V)
 #define CHG_BATT 525    // Level for <CHARGE BATT> message.(9.0V)
-#define NOT_FIRST_TIMER 0x1235  // Code for first time through with EEPROM.
+#define NOT_FIRST_TIMER 0x2376  // Change code to this after first time through.
 
 
 
@@ -116,7 +116,7 @@ int Count = KLUNK_CH; // Number of Klunker channels + 1.
 #pragma config ICS = PGx2               // Comm Channel Select (Emulator/debugger uses EMUC2/EMUD2)
 #pragma config GWRP = OFF               // General Code Segment Write Protect (Writes to program memory are allowed)
 #pragma config GCP = OFF                // General Code Segment Code Protect (Code protection is disabled)
-#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
+#pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)9ikii
 
 
 
@@ -188,14 +188,16 @@ int main(int argc, char** argv) {
     // *** Display splash screen ***
     // *****************************
 
-    //SplashDisplay();
+    SplashDisplay();
     FillScreen_ILI9341(ILI9341_BLACK);
+
 
     // *****************************
     // *** EEPROM Initialization ***
     // *****************************
     // Note: EWEN() is called from within EEEPROM_Setup().
     EEPROM_Setup(); // Initialize the EEPROM memory variables.
+
 
     // **********************************
     // *** Initial EEPROM programming ***
@@ -251,8 +253,6 @@ int main(int argc, char** argv) {
     // memory.
     SM_FLG = 1; // Set to single mode (1) for intial setup.
     GALV_FLG = 0; // Set no Galv off.
-
-
 
 
     /* *** MEMORY RECOVERY SECTION****
@@ -553,8 +553,6 @@ void Fire_Alert(void) {
 void Latch_Test(void) {
     // not sure how to initiate this
 }
-
-
 
 void SplashDisplay(void) {
 
