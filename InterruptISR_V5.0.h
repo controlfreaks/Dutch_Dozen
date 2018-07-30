@@ -537,6 +537,7 @@ void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
 // This function changes the menu displayed depending on the MenuNo variable.
 
 void Menu(void) {
+    int a = 0;
     switch (MenuNo) {
         case 0: // Display Menu: M0.
             /*  PageWrite("           ", 0);
@@ -564,6 +565,11 @@ void Menu(void) {
                 LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
+                
+                for (a=0;a<=2;a++) { // 'No FIRE' warning message.
+                LineWrite_XY_ILI9341_16x25("NO FIRE ", 4, Line6, ILI9341_PINK, ILI9341_BLACK);
+                LineWrite_XY_ILI9341_16x25("NO FIRE ", 4, Line6, ILI9341_BLACK, ILI9341_PINK);
+                }
             }
 
 
@@ -674,6 +680,10 @@ void Menu(void) {
 
             LineWrite_XY_ILI9341_16x25("Mode:", 0, Line1, ILI9341_GREEN, ILI9341_BLACK);
             LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 85, Line1, ILI9341_WHITE, ILI9341_BLACK);
+            LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_PHOSPHORGREEN, ILI9341_BLACK);
+            LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_BLACK, ILI9341_PHOSPHORGREEN);
+            LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_PHOSPHORGREEN, ILI9341_BLACK);
+            LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_BLACK, ILI9341_PHOSPHORGREEN);
             LineWrite_XY_ILI9341_16x25("Batt:", 148, Line6, ILI9341_CYAN, ILI9341_BLACK);
             LineWrite_XY_ILI9341_16x25("V", 302, Line6, ILI9341_CYAN, ILI9341_BLACK);
 
@@ -1016,9 +1026,9 @@ char *DecimalInsert(char *buf) {
 void Version(void) {
 
     FillScreen_ILI9341(ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("Serial: DD0301017-008", 0, Line0, ILI9341_GREENYELLOW, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("Serial: DD0301017-007", 0, Line0, ILI9341_GREENYELLOW, ILI9341_BLACK);
     LineWrite_XY_ILI9341_16x25("Software Version: ", 0, Line1, ILI9341_GREENYELLOW, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("Dutch-Dozen-V5.0 ", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("Dutch-Dozen-V5.0TAG00", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
     LineWrite_XY_ILI9341_16x25("Hardware Version: ", 0, Line3, ILI9341_GREENYELLOW, ILI9341_BLACK);
     LineWrite_XY_ILI9341_16x25("dutch-dozen-cpu-V7.0", 0, Line4, ILI9341_WHITE, ILI9341_BLACK);
     LineWrite_XY_ILI9341_16x25("dutch-dozen-clipped-", 0, Line5, ILI9341_WHITE, ILI9341_BLACK);
