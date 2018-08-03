@@ -128,7 +128,6 @@ int Count = KLUNK_CH; // Number of Klunker channels + 1.
 
 int main(int argc, char** argv) {
 
-
     // **************************  
     // **** Initialize PORTS ****
     // **************************
@@ -245,7 +244,6 @@ int main(int argc, char** argv) {
     // Arm_Alert routine checks to see if ARM switch is  on during start-up.
     // Freezes system until <ARM> switch is turned off.
     Arm_Alert();
-
 
 
     // *** Set FIRE Mode and GALV Mode setting ***
