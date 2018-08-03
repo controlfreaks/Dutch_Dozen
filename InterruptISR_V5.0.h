@@ -568,7 +568,7 @@ void Menu(void) {
                 LineWrite_XY_ILI9341_16x25("GALV:", 0, Line4, ILI9341_GREEN, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
-                
+
                 LineWrite_XY_ILI9341_16x25("NO FIRE ", 4, Line6, ILI9341_PINK, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("NO FIRE ", 4, Line6, ILI9341_BLACK, ILI9341_PINK);
             }
@@ -1024,14 +1024,13 @@ char *DecimalInsert(char *buf) {
 void Version(void) {
 
     FillScreen_ILI9341(ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("Serial: DD0301017-007", 0, Line0, ILI9341_GREENYELLOW, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("Software Version: ", 0, Line1, ILI9341_GREENYELLOW, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("Dutch-Dozen-V5.0TAG00", 0, Line2, ILI9341_WHITE, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("Hardware Version: ", 0, Line3, ILI9341_GREENYELLOW, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("dutch-dozen-cpu-V7.0", 0, Line4, ILI9341_WHITE, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("dutch-dozen-clipped-", 0, Line5, ILI9341_WHITE, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("relay-V5.0", 0, Line6, ILI9341_WHITE, ILI9341_BLACK);
-    LineWrite_XY_ILI9341_16x25("dutch-dozen-output-V2.0", 0, Line7, ILI9341_WHITE, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("Serial:", 0, Line0, ILI9341_GREENYELLOW, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("DD0301017-007", 0, Line1, ILI9341_WHITE, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("Software Version: ", 0, Line2, ILI9341_GREENYELLOW, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("Dutch-Dozen-V5.0", 0, Line3, ILI9341_WHITE, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("TAG:001", 0, Line4, ILI9341_WHITE, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("Hardware Version: ", 0, Line5, ILI9341_GREENYELLOW, ILI9341_BLACK);
+    LineWrite_XY_ILI9341_16x25("dutch-dozen-cpu-V7.0", 0, Line6, ILI9341_WHITE, ILI9341_BLACK);
 
     while ((_RF6 == 1) && (_RB4)) {
     } // Wait in Version screen until <RESET> is pressed. 
