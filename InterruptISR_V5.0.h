@@ -13,6 +13,10 @@
  *                     
  * 
  * Revision history: 1.0
+ * August 3, 2018: Finished the memory feature integrated into the menu
+ * system. TAG 001. Adjusted the version screen to accommodate the 3 digit
+ * TAG number. Also revamped the menu to use boxes around the entries instead
+ * of reverse video speeding up the process.
  */
 
 // This is a guard condition so that contents of this file are not included
@@ -537,7 +541,6 @@ void Memory_Recovery(void) {// When Powered up, restores from EEPROM.
 // This function changes the menu displayed depending on the MenuNo variable.
 
 void Menu(void) {
-    int a = 0;
     switch (MenuNo) {
         case 0: // Display Menu: M0.
             /*  PageWrite("           ", 0);
@@ -566,12 +569,9 @@ void Menu(void) {
                 LineWrite_XY_ILI9341_16x25(GalvStatePt[GALV_FLG], 200, Line4, ILI9341_WHITE, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("EXIT", 0, Line5, ILI9341_GREEN, ILI9341_BLACK);
                 
-                for (a=0;a<=2;a++) { // 'No FIRE' warning message.
                 LineWrite_XY_ILI9341_16x25("NO FIRE ", 4, Line6, ILI9341_PINK, ILI9341_BLACK);
                 LineWrite_XY_ILI9341_16x25("NO FIRE ", 4, Line6, ILI9341_BLACK, ILI9341_PINK);
-                }
             }
-
 
             if (DoUp) { // M10 from M50, BOX <FIRE>, UnBOX <MEM>.
                 Box_ILI9341(0, (Line3), 150, 30, ILI9341_BLACK); // UnBox <MEM MODE:>.
@@ -680,8 +680,6 @@ void Menu(void) {
 
             LineWrite_XY_ILI9341_16x25("Mode:", 0, Line1, ILI9341_GREEN, ILI9341_BLACK);
             LineWrite_XY_ILI9341_16x25(FireModePt[SM_FLG], 85, Line1, ILI9341_WHITE, ILI9341_BLACK);
-            LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_PHOSPHORGREEN, ILI9341_BLACK);
-            LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_BLACK, ILI9341_PHOSPHORGREEN);
             LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_PHOSPHORGREEN, ILI9341_BLACK);
             LineWrite_XY_ILI9341_16x25("FIRE RDY", 4, Line6, ILI9341_BLACK, ILI9341_PHOSPHORGREEN);
             LineWrite_XY_ILI9341_16x25("Batt:", 148, Line6, ILI9341_CYAN, ILI9341_BLACK);

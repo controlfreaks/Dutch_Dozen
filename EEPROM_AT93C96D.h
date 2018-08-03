@@ -20,6 +20,7 @@
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include "MyFunctions_V5.0.h"       // Has the delay functions.
+#include "PortInit_V5.0.h"
 
 
 // Write to LATCHes, Read from PORTS
@@ -59,17 +60,17 @@ int EChannel = 0x08; // EEPROM memory location for Channel setting.
 
 void EEPROM_Setup() {
 
-    //*** Note: DO & DI are from the MCU's perspective. DO is the output to 
-    // the EEPROM's input, DI is input from the EEPROM's output.
+    //*** Note: DO & DI are from the EEEPROM'S perspective. EEPROM_DO is the 
+    // output from the EEPROM's, EEPROM_DI is output from the EEPROM .
 
     // Set everything initially to zero except EEPROM_ORG = 1.
     // Pin directions WRT EEPROM.
     EEPROM_CS = 0; // (MCU pin RE4) 
     EEPROM_SK = 0; // (MCU pin RE3)
-    EEPROM_DO = 0; // (MCU pin RF7)
+    //EEPROM_DO = 0; // (MCU pin RF7) Input from EEPROM
     EEPROM_DI = 0; // (MCU pin RG3)
     EEPROM_ORG = 1; // 0 = 128 x 8,  1 = 64 x 16 of the EEPROM
-
+ 
     E_EWEN(); // Enable programming 
 }
 

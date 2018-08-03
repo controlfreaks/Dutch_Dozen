@@ -525,7 +525,7 @@ void PortInit(void) {
 
     //LATF = 0x00;   // initial port settings
 
-    //_LATF0 = 0;        // 0 = low(0v), 1 = high(+3.3V)
+    _LATF0 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATF1 = 0; // 0 = low(0v), 1 = high(+3.3V)
     _LATF2 = 1; // 0 = low(0v), 1 = high(+3.3V)
     _LATF3 = 1; // 0 = low(0v), 1 = high(+3.3V)
